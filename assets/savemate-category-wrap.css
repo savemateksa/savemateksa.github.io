@@ -1,0 +1,25 @@
+/* Homepage product-category filter: use two natural rows, retaining its existing buttons. */
+.sm-category-wrap {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  gap: 10px !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow-x: visible !important;
+  overflow-y: visible !important;
+  padding-bottom: 0 !important;
+  scrollbar-width: none;
+}
+
+.sm-category-wrap::-webkit-scrollbar { display: none; }
+
+.sm-category-wrap > * {
+  flex: 0 0 auto !important;
+  white-space: nowrap !important;
+}
+
+@media (max-width: 700px) {
+  .sm-category-wrap { gap: 8px !important; }
+  .sm-category-wrap > * { font-size: .9rem; }
+}
