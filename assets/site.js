@@ -128,11 +128,23 @@
       link.textContent = 'المدونة'
       nav.insertBefore(link, nav.querySelector('a[href="/about/"]'))
     }
+    if (nav && !nav.querySelector('a[href="/coupons/"]')) {
+      const link = document.createElement('a')
+      link.href = '/coupons/'
+      link.textContent = 'الكوبونات'
+      nav.insertBefore(link, nav.querySelector('a[href="/blog/"]'))
+    }
     const footerLinks = document.querySelector('.footer-grid > div:nth-child(2)')
     if (footerLinks && !footerLinks.querySelector('a[href="/blog/"]')) {
       const link = document.createElement('a')
       link.href = '/blog/'
       link.textContent = 'المدونة'
+      footerLinks.insertBefore(link, footerLinks.querySelector('a'))
+    }
+    if (footerLinks && !footerLinks.querySelector('a[href="/coupons/"]')) {
+      const link = document.createElement('a')
+      link.href = '/coupons/'
+      link.textContent = 'الكوبونات'
       footerLinks.insertBefore(link, footerLinks.querySelector('a'))
     }
   }
