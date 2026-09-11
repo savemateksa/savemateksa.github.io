@@ -128,12 +128,6 @@
   }
   const addBlogNavLink = () => {
     const nav = document.querySelector('.site-header nav')
-    if (nav && !nav.querySelector('a[href="/blog/"]')) {
-      const link = document.createElement('a')
-      link.href = '/blog/'
-      link.textContent = 'المدونة'
-      nav.insertBefore(link, nav.querySelector('a[href="/about/"]'))
-    }
     if (nav && !nav.querySelector('a[href="/articles/"]')) {
       const link = document.createElement('a')
       link.href = '/articles/'
