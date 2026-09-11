@@ -1,4 +1,20 @@
 (() => {
+  const repairArabicEncoding = () => {
+    const repair = value => {
+      if (!/[طظ][§±]/.test(value)) return value
+      try {
+        return decodeURIComponent(escape(value))
+      } catch (_) {
+        return value
+      }
+    }
+    document.querySelectorAll('.article-content, .article h1, .article h2, .article p, .article a').forEach(node => {
+      if (node.children.length) return
+      const fixed = repair(node.textContent)
+      if (fixed !== node.textContent) node.textContent = fixed
+    })
+  }
+  repairArabicEncoding()
   if (!document.head.querySelector('link[href="/assets/mobile-fixes.css"]')) {
     const responsiveStyle = document.createElement('link')
     responsiveStyle.rel = 'stylesheet'
