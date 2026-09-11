@@ -1,0 +1,14 @@
+.product-landing{max-width:980px}
+.product-landing>header{background:linear-gradient(135deg,#071f33,#0c3850);color:#fff;border-radius:28px;padding:clamp(1.5rem,4vw,3rem);margin-bottom:1.25rem;box-shadow:var(--shadow)}
+.product-landing>header .category{color:#6ee8f5}
+.product-landing>header h1{max-width:800px;margin:.45rem 0 1rem}
+.product-landing>header time{color:#c8d9e1}
+.product-landing .article-content>p:first-child{font-size:1.2rem;line-height:1.95;color:var(--ink);font-weight:650}
+.product-highlights{margin:0 0 1.25rem;padding:1.25rem;background:#fff;border:1px solid var(--line);border-radius:22px;box-shadow:0 9px 30px rgba(7,31,51,.05)}
+.product-highlights h2{font-size:1.35rem;margin:0 0 .8rem}
+.highlight-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem}
+.highlight-card{background:var(--ice);border-right:4px solid var(--cyan);border-radius:12px;padding:.8rem 1rem;font-weight:800;line-height:1.6}
+.product-landing .purchase-summary{margin:0 0 1.25rem;padding:1.3rem 1.5rem;border-radius:22px;box-shadow:0 9px 30px rgba(7,31,51,.06)}
+.product-landing .purchase-summary h2{font-size:1.45rem}
+.product-landing .purchase-links a{padding:.75rem 1rem}
+@media(max-width:600px){.product-landing{margin-top:1.5rem}.product-landing>header{border-radius:22px;padding:1.35rem}.highlight-grid{grid-template-columns:1fr}.product-landing .article-content>p:first-child{font-size:1.08rem}}

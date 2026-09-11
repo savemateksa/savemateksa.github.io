@@ -24,12 +24,39 @@
       if (fixed !== node.textContent) node.textContent = fixed
     })
   }
+  const enhanceProductLanding = () => {
+    const article = document.querySelector('.article')
+    const content = article?.querySelector('.article-content')
+    if (!article || !content) return
+    article.classList.add('product-landing')
+    const features = [...content.querySelectorAll('li')].slice(0, 3)
+    if (!features.length || article.querySelector('.product-highlights')) return
+    const section = document.createElement('section')
+    section.className = 'product-highlights'
+    section.setAttribute('aria-labelledby', 'highlights-title')
+    section.innerHTML = '<h2 id="highlights-title">أبرز ما يقدمه المنتج</h2><div class="highlight-grid"></div>'
+    const grid = section.querySelector('.highlight-grid')
+    features.forEach(feature => {
+      const card = document.createElement('div')
+      card.className = 'highlight-card'
+      card.textContent = feature.textContent.trim()
+      grid.appendChild(card)
+    })
+    article.insertBefore(section, content)
+  }
   repairArabicEncoding()
+  enhanceProductLanding()
   if (!document.head.querySelector('link[href="/assets/mobile-fixes.css"]')) {
     const responsiveStyle = document.createElement('link')
     responsiveStyle.rel = 'stylesheet'
     responsiveStyle.href = '/assets/mobile-fixes.css'
     document.head.appendChild(responsiveStyle)
+  }
+  if (!document.head.querySelector('link[href="/assets/product-landing.css"]')) {
+    const landingStyle = document.createElement('link')
+    landingStyle.rel = 'stylesheet'
+    landingStyle.href = '/assets/product-landing.css'
+    document.head.appendChild(landingStyle)
   }
   if (!document.head.querySelector('link[rel="icon"]')) {
     const icon = document.createElement('link')
