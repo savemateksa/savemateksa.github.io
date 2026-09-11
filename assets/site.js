@@ -8,7 +8,17 @@
         return value
       }
     }
-    document.querySelectorAll('.article-content, .article h1, .article h2, .article p, .article a').forEach(node => {
+    document.querySelectorAll('.buy-link').forEach(link => {
+      const store = /AliExpress|SHEIN|Amazon/i.exec(link.textContent || '')?.[0]
+      if (store) link.textContent = `عرض المنتج على ${store}`
+    })
+    document.querySelectorAll('.article-content h2, .article-content p').forEach(node => {
+      if (/[طظ][§±]/.test(node.textContent || '')) {
+        if (node.matches('h2')) node.textContent = 'روابط الشراء'
+        else if ((node.textContent || '').includes('طھ')) node.textContent = 'تحقق من الرابط لمعرفة السعر الحالي والتوفر والشحن.'
+      }
+    })
+    document.querySelectorAll('.article h1, .article p, .article a').forEach(node => {
       if (node.children.length) return
       const fixed = repair(node.textContent)
       if (fixed !== node.textContent) node.textContent = fixed
