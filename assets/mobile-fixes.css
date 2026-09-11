@@ -1,0 +1,10 @@
+.site-header nav{scrollbar-width:none}
+.site-header nav::-webkit-scrollbar{display:none}
+.panel-link{color:var(--cyan-dark);font-weight:900;text-decoration:none;margin-top:auto}
+.hero-panel strong{font-size:clamp(2.2rem,5vw,4rem);line-height:1.1}
+.hero-panel span{margin-top:.65rem}
+@media(max-width:900px){
+  .header-inner{flex-wrap:wrap}
+  .site-header nav{order:3;display:flex;flex:1 0 100%;gap:1.1rem;overflow-x:auto;padding:.35rem 0 .15rem}
+  .site-header nav a{white-space:nowrap;font-size:.95rem}
+}

@@ -1,4 +1,10 @@
 (() => {
+  if (!document.head.querySelector('link[href="/assets/mobile-fixes.css"]')) {
+    const responsiveStyle = document.createElement('link')
+    responsiveStyle.rel = 'stylesheet'
+    responsiveStyle.href = '/assets/mobile-fixes.css'
+    document.head.appendChild(responsiveStyle)
+  }
   if (!document.head.querySelector('link[rel="icon"]')) {
     const icon = document.createElement('link')
     icon.rel = 'icon'
@@ -126,6 +132,12 @@
       const link = document.createElement('a')
       link.href = '/blog/'
       link.textContent = 'المدونة'
+      nav.insertBefore(link, nav.querySelector('a[href="/about/"]'))
+    }
+    if (nav && !nav.querySelector('a[href="/articles/"]')) {
+      const link = document.createElement('a')
+      link.href = '/articles/'
+      link.textContent = 'المقالات'
       nav.insertBefore(link, nav.querySelector('a[href="/about/"]'))
     }
     const footerLinks = document.querySelector('.footer-grid > div:nth-child(2)')
