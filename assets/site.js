@@ -134,13 +134,6 @@
       link.textContent = 'المقالات'
       nav.insertBefore(link, nav.querySelector('a[href="/about/"]'))
     }
-    const footerLinks = document.querySelector('.footer-grid > div:nth-child(2)')
-    if (footerLinks && !footerLinks.querySelector('a[href="/blog/"]')) {
-      const link = document.createElement('a')
-      link.href = '/blog/'
-      link.textContent = 'المدونة'
-      footerLinks.insertBefore(link, footerLinks.querySelector('a'))
-    }
   }
   const tagPurchaseLinks = () => {
     document.querySelectorAll('.article-content .buy-link').forEach(link => {
