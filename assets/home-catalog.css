@@ -1,0 +1,94 @@
+/* Stable product-card layout for the homepage. Kept separate so cached global
+   styles cannot disturb the product catalogue after a publisher update. */
+#products.catalog {
+  max-width: 1180px;
+  margin-inline: auto;
+  padding: 2.5rem 1.25rem 5rem;
+}
+
+#results.grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 1.25rem !important;
+  width: 100% !important;
+  max-width: 1180px;
+  margin: 0 auto;
+  align-items: stretch;
+}
+
+#results.grid > .deal-card {
+  display: flex !important;
+  flex-direction: column !important;
+  min-width: 0;
+  min-height: 100%;
+  margin: 0 !important;
+  border: 1px solid var(--line, #d9e7ec);
+  border-radius: 22px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 9px 30px rgba(7, 31, 51, .05);
+}
+
+#results.grid > .deal-card > .card-image {
+  display: block !important;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #fff;
+}
+
+#results.grid > .deal-card > .card-image img {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  max-height: none !important;
+  object-fit: contain !important;
+  background: #fff;
+}
+
+#results.grid > .deal-card > .card-body {
+  display: flex !important;
+  flex: 1 1 auto;
+  flex-direction: column !important;
+  align-items: stretch;
+  min-width: 0;
+  padding: 1.25rem;
+  text-align: right;
+}
+
+#results.grid > .deal-card .card-body h2 {
+  font-size: 1.18rem;
+  line-height: 1.5;
+  margin: .2rem 0 .45rem;
+}
+
+#results.grid > .deal-card .card-body p {
+  display: -webkit-box;
+  overflow: hidden;
+  margin: .45rem 0 1rem;
+  color: var(--muted, #617583);
+  font-size: .92rem;
+  line-height: 1.8;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+#results.grid > .deal-card .details {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  width: fit-content;
+  margin-top: auto;
+  font-weight: 900;
+}
+
+@media (max-width: 900px) {
+  #results.grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+}
+
+@media (max-width: 600px) {
+  #products.catalog { padding: 1.75rem 1rem 3.5rem; }
+  #results.grid { grid-template-columns: minmax(0, 1fr) !important; gap: 1rem !important; }
+  #results.grid > .deal-card > .card-body { padding: 1.1rem; }
+}
