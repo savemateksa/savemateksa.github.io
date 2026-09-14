@@ -181,13 +181,13 @@
   }
   const ensureShareButtons = () => {
     if (!document.querySelector('.article') || document.querySelector('.sm-share')) return
-    if (!document.head.querySelector('link[href="/assets/savemate-share-buttons.css"]')) {
+    if (!document.head.querySelector('link[href^="/assets/savemate-share-buttons.css"]')) {
       const stylesheet = document.createElement('link')
       stylesheet.rel = 'stylesheet'
       stylesheet.href = '/assets/savemate-share-buttons.css'
       document.head.appendChild(stylesheet)
     }
-    if (!document.querySelector('script[src="/assets/savemate-share-buttons.js"]')) {
+    if (!document.querySelector('script[src^="/assets/savemate-share-buttons.js"]')) {
       const script = document.createElement('script')
       script.src = '/assets/savemate-share-buttons.js'
       script.defer = true
