@@ -179,6 +179,22 @@
     setMeta('meta[name="twitter:title"]', 'name', pageTitle)
     setMeta('meta[name="twitter:description"]', 'name', description)
   }
+  const ensureShareButtons = () => {
+    if (!document.querySelector('.article') || document.querySelector('.sm-share')) return
+    if (!document.head.querySelector('link[href="/assets/savemate-share-buttons.css"]')) {
+      const stylesheet = document.createElement('link')
+      stylesheet.rel = 'stylesheet'
+      stylesheet.href = '/assets/savemate-share-buttons.css'
+      document.head.appendChild(stylesheet)
+    }
+    if (!document.querySelector('script[src="/assets/savemate-share-buttons.js"]')) {
+      const script = document.createElement('script')
+      script.src = '/assets/savemate-share-buttons.js'
+      script.defer = true
+      script.dataset.smShare = '1'
+      document.body.appendChild(script)
+    }
+  }
   const addBlogNavLink = () => {
     const nav = document.querySelector('.site-header nav')
     if (nav && !nav.querySelector('a[href="/articles/"]')) {
@@ -202,6 +218,7 @@
   }
   addProductSchema()
   updateProductSharingMeta()
+  ensureShareButtons()
   tagPurchaseLinks()
   addBlogNavLink()
   addPurchaseSummary()
