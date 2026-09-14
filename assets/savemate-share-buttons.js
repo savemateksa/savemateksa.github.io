@@ -1,1 +1,30 @@
-(()=>{const u=location.href.split('#')[0],t=document.title;const q=encodeURIComponent(u),m=encodeURIComponent(t+' '+u);const wrap=document.createElement('section');wrap.className='sm-share';wrap.setAttribute('aria-label','Share');wrap.innerHTML='<span class="sm-share-title">\u0634\u0627\u0631\u0643 \u0627\u0644\u0635\u0641\u062d\u0629</span><div class="sm-share-links"><a href="https://wa.me/?text='+m+'" target="_blank" rel="noopener">WhatsApp</a><a href="https://www.facebook.com/sharer/sharer.php?u='+q+'" target="_blank" rel="noopener">Facebook</a><a href="https://x.com/intent/post?text='+m+'" target="_blank" rel="noopener">X</a><a href="https://t.me/share/url?url='+q+'&text='+encodeURIComponent(t)+'" target="_blank" rel="noopener">Telegram</a><button type="button" class="sm-copy">\u0646\u0633\u062e \u0627\u0644\u0631\u0627\u0628\u0637</button><button type="button" class="sm-native">\u0645\u0634\u0627\u0631\u0643\u0629</button></div>';const copy=wrap.querySelector('.sm-copy'),nativeBtn=wrap.querySelector('.sm-native');copy.onclick=async()=>{try{await navigator.clipboard.writeText(u);copy.textContent='\u062a\u0645 \u0627\u0644\u0646\u0633\u062e';setTimeout(()=>copy.textContent='\u0646\u0633\u062e \u0627\u0644\u0631\u0627\u0628\u0637',1800)}catch(_){prompt('\u0627\u0646\u0633\u062e \u0627\u0644\u0631\u0627\u0628\u0637',u)}};if(navigator.share){nativeBtn.onclick=()=>navigator.share({title:t,url:u});}else nativeBtn.remove();const target=document.querySelector('main')||document.querySelector('article')||document.querySelector('.article-content')||document.querySelector('.product');if(target)target.appendChild(wrap);})();
+(() => {
+  if (document.querySelector('.sm-share')) return
+  const url = location.href.split('#')[0]
+  const title = document.title.replace(/\s*\|\s*صديق التوفير\s*$/, '').trim()
+  const encodedUrl = encodeURIComponent(url)
+  const encodedTitle = encodeURIComponent(title)
+  const message = encodeURIComponent(`${title} ${url}`)
+  const wrap = document.createElement('section')
+  wrap.className = 'sm-share'
+  wrap.setAttribute('aria-label', 'شارك الصفحة')
+  wrap.innerHTML = `<span class="sm-share-title">شارك المقال أو المنتج</span><p class="sm-share-note">أرسل الرابط لمن يهمه العرض أو الدليل.</p><div class="sm-share-links"><a class="sm-whatsapp" href="https://wa.me/?text=${message}" target="_blank" rel="noopener noreferrer">واتساب</a><a class="sm-facebook" href="https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}" target="_blank" rel="noopener noreferrer">فيسبوك</a><a class="sm-x" href="https://x.com/intent/post?text=${message}" target="_blank" rel="noopener noreferrer">X</a><a class="sm-telegram" href="https://t.me/share/url?url=${encodedUrl}&text=${encodedTitle}" target="_blank" rel="noopener noreferrer">تيليجرام</a><button type="button" class="sm-copy">نسخ الرابط</button><button type="button" class="sm-native">مشاركة</button></div>`
+  const copy = wrap.querySelector('.sm-copy')
+  const nativeBtn = wrap.querySelector('.sm-native')
+  copy.onclick = async () => {
+    try {
+      await navigator.clipboard.writeText(url)
+      copy.textContent = 'تم النسخ'
+      setTimeout(() => { copy.textContent = 'نسخ الرابط' }, 1800)
+    } catch (_) {
+      prompt('انسخ الرابط', url)
+    }
+  }
+  if (navigator.share) {
+    nativeBtn.onclick = () => navigator.share({ title, url })
+  } else {
+    nativeBtn.remove()
+  }
+  const target = document.querySelector('main') || document.querySelector('article') || document.querySelector('.article-content') || document.querySelector('.product')
+  if (target) target.appendChild(wrap)
+})()
