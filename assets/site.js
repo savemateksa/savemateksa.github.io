@@ -45,7 +45,8 @@
     article.insertBefore(section, content)
   }
   repairArabicEncoding()
-  enhanceProductLanding()
+  // DISABLED highlight banner — «أبرز ما يقدمه المنتج» خاص بصفحات المنتجات حصراً، لا يُحقن في المقالات
+  if (document.querySelector('.product-purchase')) enhanceProductLanding()
   if (!document.head.querySelector('link[href="/assets/mobile-fixes.css"]')) {
     const responsiveStyle = document.createElement('link')
     responsiveStyle.rel = 'stylesheet'
