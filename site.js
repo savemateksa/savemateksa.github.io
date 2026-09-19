@@ -217,7 +217,7 @@
       } catch (_) {}
     })
   }
-  addProductSchema()
+  // Product JSON-LD is intentionally disabled; incomplete Product data causes Google warnings.
   updateProductSharingMeta()
   ensureShareButtons()
   tagPurchaseLinks()
