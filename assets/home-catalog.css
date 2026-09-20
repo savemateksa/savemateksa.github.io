@@ -6,6 +6,26 @@
   padding: 2.5rem 1.25rem 5rem;
 }
 
+.trust-strip {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 1.25rem 2rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: .85rem;
+}
+.trust-strip > div {
+  display: grid;
+  gap: .25rem;
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--line, #d9e7ec);
+  border-radius: 16px;
+  background: rgba(255,255,255,.8);
+}
+.trust-strip strong { color: var(--ink, #09263d); font-size: .98rem; }
+.trust-strip span, .catalog-count { color: var(--muted, #617583); font-size: .88rem; }
+.catalog-count { margin: .25rem 0 0; }
+
 #results.grid {
   display: grid !important;
   grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
@@ -88,6 +108,7 @@
 }
 
 @media (max-width: 600px) {
+  .trust-strip { grid-template-columns: minmax(0, 1fr); padding-inline: 1rem; }
   #products.catalog { padding: 1.75rem 1rem 3.5rem; }
   #results.grid { grid-template-columns: minmax(0, 1fr) !important; gap: 1rem !important; }
   #results.grid > .deal-card > .card-body { padding: 1.1rem; }

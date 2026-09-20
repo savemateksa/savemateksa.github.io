@@ -70,6 +70,7 @@
   const cards = [...document.querySelectorAll('.deal-card')]
   const chips = [...document.querySelectorAll('.chip')]
   const empty = document.querySelector('#empty')
+  const catalogCount = document.querySelector('#catalog-count')
   const addRelatedProducts = async () => {
     const article = document.querySelector('.article')
     if (!article || article.querySelector('.related') || document.querySelector('.related-products')) return
@@ -239,6 +240,7 @@
       if (show) visible += 1
     })
     empty.hidden = visible !== 0
+    if (catalogCount) catalogCount.textContent = visible ? `${visible} منتج متاح` : 'لا توجد منتجات مطابقة'
   }
   search.addEventListener('input', render)
   chips.forEach(chip => chip.addEventListener('click', () => {
