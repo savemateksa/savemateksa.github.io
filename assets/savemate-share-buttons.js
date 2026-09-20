@@ -1,6 +1,16 @@
-(() => {
+(async () => {
   if (document.querySelector('.sm-share')) return
-  const url = location.href.split('#')[0]
+  // SAVEMATE_STABLE_SHORTLINKS: use only a deployed same-origin mapping.
+  let url = location.origin + location.pathname
+  try {
+    const response = await fetch('/assets/shortlinks.json', { cache: 'no-cache', signal: AbortSignal.timeout(2500) })
+    if (response.ok) {
+      const links = await response.json()
+      const path = decodeURIComponent(location.pathname).replace(/\/?$/, '/')
+      const short = links[path] || links[location.pathname]
+      if (typeof short === 'string' && /^\/p\/[a-f0-9]{8}\/$/.test(short)) url = location.origin + short
+    }
+  } catch (_) { /* Keep the working canonical page when the map is unavailable. */ }
   const title = document.title.replace(/\s*\|\s*صديق التوفير\s*$/, '').trim()
   const encodedUrl = encodeURIComponent(url)
   const encodedTitle = encodeURIComponent(title)
