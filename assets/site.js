@@ -69,6 +69,8 @@
   const search = document.querySelector('#search')
   const cards = [...document.querySelectorAll('.deal-card')]
   const chips = [...document.querySelectorAll('.chip')]
+  const categorySelect = document.querySelector('#category-filter')
+  const categoryCards = [...document.querySelectorAll('[data-home-filter]')]
   const empty = document.querySelector('#empty')
   const catalogCount = document.querySelector('#catalog-count')
   const addRelatedProducts = async () => {
@@ -243,9 +245,21 @@
     if (catalogCount) catalogCount.textContent = visible ? `${visible} منتج متاح` : 'لا توجد منتجات مطابقة'
   }
   search.addEventListener('input', render)
+  categorySelect?.addEventListener('change', () => {
+    category = categorySelect.value
+    chips.forEach(item => item.classList.toggle('active', item.dataset.filter === category))
+    render()
+  })
   chips.forEach(chip => chip.addEventListener('click', () => {
     category = chip.dataset.filter
+    if (categorySelect) categorySelect.value = category
     chips.forEach(item => item.classList.toggle('active', item === chip))
+    render()
+  }))
+  categoryCards.forEach(card => card.addEventListener('click', () => {
+    category = card.dataset.homeFilter
+    if (categorySelect) categorySelect.value = category
+    chips.forEach(item => item.classList.toggle('active', item.dataset.filter === category))
     render()
   }))
 })()
