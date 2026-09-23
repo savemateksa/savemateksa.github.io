@@ -113,3 +113,16 @@
   .how-choose-grid { grid-template-columns: 1fr; }
   .how-choose-card { min-height: 0; }
 }
+
+
+/* SaveMateKSA shared mobile navigation */
+.sm-mobile-nav{display:none}
+@media(max-width:900px){
+  .site-header .sm-mobile-nav{display:block;position:relative;flex:0 0 auto}
+  .site-header .sm-mobile-nav summary{list-style:none;display:grid;gap:5px;width:42px;height:42px;place-content:center;border-radius:12px;background:#eaf3fb;cursor:pointer}
+  .site-header .sm-mobile-nav summary::-webkit-details-marker{display:none}
+  .site-header .sm-mobile-nav summary span{display:block;width:20px;height:2px;border-radius:2px;background:#123a66}
+  .site-header .sm-mobile-links{position:absolute;top:calc(100% + 8px);inset-inline-end:0;z-index:120;min-width:220px;max-height:70vh;overflow:auto;padding:10px;background:#fff;border:1px solid #dce6f1;border-radius:14px;box-shadow:0 8px 24px rgba(11,37,69,.12)}
+  .site-header .sm-mobile-links a{display:block;padding:9px 12px;border-radius:8px;color:#152238;text-decoration:none;font-weight:700}
+  .site-header .sm-mobile-links a:hover,.site-header .sm-mobile-links a:focus-visible{background:#eaf3fb}
+}
