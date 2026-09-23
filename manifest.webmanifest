@@ -1,0 +1,54 @@
+{
+  "id": "/",
+  "name": "صديق التوفير | SaveMateKSA",
+  "short_name": "صديق التوفير",
+  "description": "اكتشف منتجات وعروضًا تساعدك على التوفير.",
+  "lang": "ar",
+  "dir": "rtl",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f4f9fb",
+  "theme_color": "#11b5c9",
+  "prefer_related_applications": false,
+  "icons": [
+    {
+      "src": "/assets/pwa/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/pwa/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "الأقسام",
+      "short_name": "الأقسام",
+      "url": "/categories/",
+      "icons": [
+        {
+          "src": "/assets/pwa/icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "المقالات",
+      "short_name": "المقالات",
+      "url": "/articles/",
+      "icons": [
+        {
+          "src": "/assets/pwa/icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    }
+  ]
+}

@@ -22,7 +22,7 @@
   <link rel="alternate" type="application/rss+xml" title="صديق التوفير" href="/feed.xml">
   <link rel="stylesheet" href="/assets/style.css?v=20260924-shared-nav2">
   <link rel="stylesheet" href="/assets/social.css">
-<link rel="icon" type="image/svg+xml" href="/assets/brand/favicon.svg"><link rel="apple-touch-icon" href="/assets/brand/favicon.svg"><!-- Google tag (gtag.js) -->
+<link rel="icon" type="image/svg+xml" href="/assets/brand/favicon.svg"><!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-88LRQWDRQZ"></script>
 <script>
 window.dataLayer = window.dataLayer || [];
@@ -53,6 +53,18 @@ gtag('config', 'G-88LRQWDRQZ');
 .contact-details a:hover{text-decoration:underline}
 @media(max-width:640px){.contact-page{padding:32px 16px 46px}.contact-heading{margin-bottom:28px}.contact-card{padding:22px 18px 0;border-radius:18px}.contact-fields{grid-template-columns:1fr;gap:0}.contact-field{margin-bottom:16px}}
 </style>
+
+
+
+
+
+
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#11b5c9">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="صديق التوفير">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/pwa/icon-180.png">
 </head>
 <body>
   <a class="skip" href="#main">انتقل إلى المحتوى</a>
@@ -108,5 +120,6 @@ document.getElementById('contact-form')?.addEventListener('submit', function (ev
   window.location.href = `mailto:savemateksa@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 });
 </script>
+<script defer src="/assets/pwa-register.js?v=20260924-1"></script>
 </body>
 </html>
