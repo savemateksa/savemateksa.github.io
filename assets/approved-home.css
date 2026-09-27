@@ -814,3 +814,9 @@
 @media(max-width:700px){.approved-home-v2 .hero{padding:30px 0 38px}.approved-home-v2 .hero-title{font-size:clamp(31px,9vw,43px)}.approved-home-v2 .hero-stats{grid-template-columns:1fr;gap:10px}.approved-home-v2 .cat-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.approved-home-v2 .section-head{align-items:stretch}.approved-home-v2 .home-contact-card{padding:20px 16px}}
 
 .approved-home-v2 .hero-text,.approved-home-v2 .hero p{color:var(--ink-soft)!important}
+
+
+/* Responsive header: use laptop and desktop width while keeping the current layout. */
+@media(min-width:901px){.approved-home-v2 .header-inner{width:94%;max-width:1440px;margin-inline:auto}}
+/* Keep every mobile navigation link reachable on short screens. */
+@media(max-width:900px){.approved-home-v2 .home-mobile-links{max-height:calc(100vh - 104px);max-height:calc(100dvh - 104px);overflow-y:auto;overscroll-behavior:contain}}
