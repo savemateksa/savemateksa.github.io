@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>صديق التوفير موشن</title>
+<style>
+@font-face{font-family:Cairo;font-weight:400;src:url(a/cairo-arabic-400-normal.woff2) format('woff2');unicode-range:U+0600-06FF,U+0750-077F,U+FB50-FDFF,U+FE70-FEFF}
+@font-face{font-family:Cairo;font-weight:700;src:url(a/cairo-arabic-700-normal.woff2) format('woff2');unicode-range:U+0600-06FF,U+0750-077F,U+FB50-FDFF,U+FE70-FEFF}
+@font-face{font-family:Cairo;font-weight:900;src:url(a/cairo-arabic-900-normal.woff2) format('woff2');unicode-range:U+0600-06FF,U+0750-077F,U+FB50-FDFF,U+FE70-FEFF}
+@font-face{font-family:Cairo;font-weight:700;src:url(a/cairo-latin-700-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+2000-206F}
+@font-face{font-family:Cairo;font-weight:900;src:url(a/cairo-latin-900-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+2000-206F}
+:root{--navy:#071f33;--navy2:#0d2944;--teal:#11b5c9;--cyan:#00a9c6;--mint:#2fd3a8;--ice:#eafaff;--orange:#FF8A1F;--ink:#122b3d}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:var(--navy)}
+body{font-family:Cairo,"Noto Color Emoji",sans-serif;color:#fff}
+#stage{position:relative;width:1080px;height:1920px;overflow:hidden;background:radial-gradient(1200px 900px at 50% 30%,#0f3a5c 0%,var(--navy) 70%)}
+.blob{position:absolute;border-radius:50%;filter:blur(80px);opacity:.55}
+.scene{position:absolute;inset:0;opacity:0}
+.abs{position:absolute}
+.center{left:0;right:0;text-align:center}
+.h1{font-weight:900;font-size:104px;line-height:1.15}
+.h2{font-weight:900;font-size:78px;line-height:1.2}
+.h3{font-weight:700;font-size:46px;line-height:1.4;color:#cfe9f2}
+.teal{color:var(--teal)}.orange{color:var(--orange)}.mint{color:var(--mint)}
+.pill{display:inline-block;padding:14px 38px;border-radius:999px;background:rgba(17,181,201,.16);border:2px solid rgba(17,181,201,.55);color:#9ff0fb;font-weight:700;font-size:38px}
+.card{background:#fff;color:var(--ink);border-radius:36px;box-shadow:0 30px 80px rgba(0,0,0,.35)}
+.tag{width:300px;height:190px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
+.tag b{font-size:74px;font-weight:900;line-height:1}
+.tag span{font-size:32px;font-weight:700;color:#617583}
+.phone{width:700px;height:1100px;border-radius:80px;background:#0b1622;border:14px solid #1d3346;box-shadow:0 40px 120px rgba(0,0,0,.5),0 0 0 3px #2a4a63 inset;overflow:hidden}
+.tgbar{height:150px;background:#17212b;display:flex;align-items:center;gap:22px;padding:40px 36px 0}
+.tgbar img{width:84px;height:84px;border-radius:50%}
+.tgbar b{font-size:36px;font-weight:900;display:block;line-height:1.2}
+.tgbar small{font-size:26px;color:#7f97ab}
+.chat{position:absolute;top:150px;left:0;right:0;bottom:0;background:linear-gradient(#0e1621,#0e1a26);padding:30px}
+.bub{position:absolute;max-width:520px;padding:20px 28px;border-radius:30px;font-size:32px;font-weight:700;line-height:1.45}
+.bub.me{left:30px;background:#2b5278;border-bottom-left-radius:8px}
+.bub.bot{right:30px;background:#182533;border-bottom-right-radius:8px}
+.row{position:absolute;left:40px;right:40px;height:118px;border-radius:26px;background:#fff;color:var(--ink);display:flex;align-items:center;padding:0 26px;gap:20px}
+.row img{width:120px;height:66px;object-fit:contain}
+.row .nm{flex:1;font-size:30px;font-weight:700;color:#4a5a72}
+.row .pr{font-size:44px;font-weight:900;direction:rtl}
+.row .badge{position:absolute;top:-20px;left:24px;background:var(--orange);color:#fff;font-size:24px;font-weight:900;padding:4px 18px;border-radius:999px}
+.way{width:300px;height:250px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;border-radius:40px;background:rgba(255,255,255,.07);border:2px solid rgba(255,255,255,.14)}
+.way i{font-style:normal;font-size:96px;line-height:1}
+.way b{font-size:44px;font-weight:900}
+.tile{width:290px;height:290px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px}
+.tile i{font-style:normal;font-size:110px;line-height:1}
+.tile b{font-size:36px;font-weight:900;color:var(--ink);text-align:center;line-height:1.25}
+.coupon{width:860px;height:330px;display:flex;align-items:center;padding:0 56px;gap:40px;position:absolute;left:110px}
+.coupon .code{flex:1;height:170px;border:5px dashed var(--teal);border-radius:28px;display:flex;align-items:center;justify-content:center;font-family:Cairo,monospace;font-weight:900;font-size:96px;letter-spacing:10px;color:var(--navy2);direction:ltr}
+.coupon .lbl{width:220px;font-size:40px;font-weight:900;line-height:1.3}
+.coupon .lbl small{display:block;font-size:28px;color:#617583;font-weight:700}
+.stat{width:420px;height:260px;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:40px;background:rgba(255,255,255,.07);border:2px solid rgba(255,255,255,.14)}
+.stat b{font-size:130px;font-weight:900;line-height:1;color:var(--teal)}
+.stat span{font-size:42px;font-weight:700}
+.cover{position:absolute;width:820px;border-radius:30px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.45);border:6px solid #fff}
+.cover img{display:block;width:100%}
+.val{position:absolute;left:80px;right:80px;height:170px;border-radius:40px;background:rgba(255,255,255,.08);border:2px solid rgba(255,255,255,.15);display:flex;align-items:center;gap:36px;padding:0 50px}
+.val .ck{width:96px;height:96px;border-radius:50%;background:var(--mint);color:var(--navy);display:flex;align-items:center;justify-content:center;font-size:60px;font-weight:900;flex:none}
+.val b{font-size:46px;font-weight:900}
+.btn{display:inline-flex;align-items:center;gap:20px;padding:30px 60px;border-radius:999px;background:linear-gradient(90deg,#229ED9,#2AABEE);font-size:50px;font-weight:900;box-shadow:0 20px 60px rgba(34,158,217,.45);direction:ltr}
+.tap{position:absolute;width:110px;height:110px;border-radius:50%;border:8px solid #fff;opacity:0}
+.note{font-size:26px;color:#7f97ab;font-weight:700}
+#bar{position:absolute;bottom:0;left:0;height:12px;background:linear-gradient(90deg,var(--teal),var(--mint))}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="blob" id="b1" style="width:700px;height:700px;background:#11b5c9"></div>
+  <div class="blob" id="b2" style="width:600px;height:600px;background:#2fd3a8"></div>
+  <div class="blob" id="b3" style="width:500px;height:500px;background:#FF8A1F;opacity:.22"></div>
+
+  <!-- 1 Intro -->
+  <div class="scene" id="s1">
+    <img class="abs" id="s1logo" src="a/bot-logo.jpg" style="width:520px;height:520px;left:280px;top:420px;border-radius:50%;box-shadow:0 0 0 14px rgba(17,181,201,.25),0 40px 120px rgba(0,0,0,.5)">
+    <div class="abs center h1" id="s1t" style="top:1020px">صديق <span class="teal">التوفير</span></div>
+    <div class="abs center" id="s1e" style="top:1160px;font-size:54px;font-weight:900;letter-spacing:4px;color:#9ff0fb;direction:ltr">SaveMateKSA</div>
+    <div class="abs center h3" id="s1g" style="top:1290px">اكتشف منتجات تستحق الشراء<br>وعروضًا تساعدك على <span class="orange" style="font-weight:900">التوفير</span></div>
+  </div>
+
+  <!-- 2 Problem -->
+  <div class="scene" id="s2">
+    <div class="abs center h2" id="s2a" style="top:330px">نفس المنتج…</div>
+    <div class="abs center h2" id="s2b" style="top:440px">بسعر <span class="orange">مختلف</span><br>في كل متجر!</div>
+    <div class="abs card tag" id="s2t1" style="left:80px;top:860px"><b>189</b><span>ريال</span></div>
+    <div class="abs card tag" id="s2t2" style="left:390px;top:860px"><b>149</b><span>ريال</span></div>
+    <div class="abs card tag" id="s2t3" style="left:700px;top:860px"><b>212</b><span>ريال</span></div>
+    <div class="abs center" id="s2q" style="top:1180px;font-size:200px;font-weight:900;color:var(--teal)">؟</div>
+    <div class="abs center h3" id="s2c" style="top:1480px">مين الأرخص؟ لا تضيّع وقتك تدوّر…</div>
+  </div>
+
+  <!-- 3 Bot ways -->
+  <div class="scene" id="s3">
+    <div class="abs center" style="top:240px"><span class="pill" id="s3p">جديد على تلجرام</span></div>
+    <div class="abs center h2" id="s3t" style="top:340px">بوت <span class="teal">صديق التوفير</span><br>يقارن لك قبل ما تشتري</div>
+    <div class="abs center h3" id="s3s" style="top:620px">أرسل له المنتج بأي طريقة:</div>
+    <div class="abs way" id="s3w1" style="left:720px;top:800px"><i>📸</i><b>بالصورة</b></div>
+    <div class="abs way" id="s3w2" style="left:390px;top:800px"><i>🔗</i><b>بالرابط</b></div>
+    <div class="abs way" id="s3w3" style="left:60px;top:800px"><i>🔎</i><b>بالاسم</b></div>
+    <div class="abs center h3" id="s3f" style="top:1160px">ويقارن بين <b style="color:#fff">أمازون</b> و<b style="color:#fff">علي إكسبرس</b></div>
+    <div class="abs" id="s3logos" style="left:0;right:0;top:1290px;display:flex;justify-content:center;gap:40px">
+      <div class="card" style="padding:24px 40px;border-radius:28px"><img src="a/amazon.png" style="height:110px;display:block"></div>
+      <div class="card" style="padding:24px 40px;border-radius:28px"><img src="a/aliexpress.png" style="height:110px;display:block"></div>
+    </div>
+  </div>
+
+  <!-- 4 Bot chat demo -->
+  <div class="scene" id="s4">
+    <div class="abs center h2" id="s4t" style="top:130px;font-size:66px">ويرتّب العروض <span class="orange">من الأرخص</span></div>
+    <div class="abs phone" id="s4ph" style="left:190px;top:330px">
+      <div class="tgbar"><img src="a/bot-logo.jpg"><div><b>صديق التوفير</b><small style="direction:ltr;display:block;text-align:right">@savemateksabot</small></div></div>
+      <div class="chat">
+        <div class="bub me" id="s4m" style="top:30px">🔎 <span id="s4typed"></span></div>
+        <div class="bub bot" id="s4b" style="top:160px">رتّبت لك العروض من الأرخص 👇</div>
+        <div class="row" id="r1"><img src="a/aliexpress.png"><span class="nm">العرض ١</span><span class="pr">149 ر.س</span><span class="badge" id="r1b">الأرخص</span></div>
+        <div class="row" id="r2"><img src="a/amazon.png"><span class="nm">العرض ٢</span><span class="pr">189 ر.س</span></div>
+        <div class="row" id="r3"><img src="a/aliexpress.png"><span class="nm">العرض ٣</span><span class="pr">212 ر.س</span></div>
+        <div class="bub bot" id="s4n" style="top:740px;font-size:26px;max-width:600px">✅ يوضّح لك: نفس الموديل أو بديل مشابه</div>
+      </div>
+    </div>
+    <div class="abs center note" id="s4x" style="top:1500px">* مثال توضيحي — الأسعار تتغير حسب المتجر</div>
+    <div class="abs center h3" id="s4c" style="top:1580px;color:#fff;font-weight:900">بثواني… بدل ساعات بحث</div>
+  </div>
+
+  <!-- 5 Categories -->
+  <div class="scene" id="s5">
+    <div class="abs center h2" id="s5t" style="top:200px">تصفّح حسب <span class="teal">اللي يهمك</span></div>
+    <div class="abs center h3" id="s5s" style="top:420px">منتجات مختارة بمعلومات واضحة تساعدك تقارن</div>
+    <div id="tiles"></div>
+  </div>
+
+  <!-- 6 Coupons -->
+  <div class="scene" id="s6">
+    <div class="abs center h2" id="s6t" style="top:240px">أكواد خصم <span class="orange">جاهزة</span></div>
+    <div class="abs center h3" id="s6s" style="top:360px">لمتاجر تعرفها… انسخ الكود ووفّر</div>
+    <div class="abs stat" id="s6a" style="left:570px;top:530px"><b id="n1">0</b><span>متجر</span></div>
+    <div class="abs stat" id="s6b" style="left:90px;top:530px"><b id="n2">0</b><span>كود خصم</span></div>
+    <div class="card coupon" id="s6c" style="top:960px"><div class="lbl">كود الخصم<small>اضغط لنسخ الكود</small></div><div class="code">XHENE</div></div>
+    <div class="tap" id="s6tap" style="left:300px;top:1080px"></div>
+    <div class="abs center" id="s6ok" style="top:1350px"><span class="pill" style="background:rgba(47,211,168,.18);border-color:var(--mint);color:var(--mint);font-size:46px;font-weight:900">✓ تم النسخ</span></div>
+    <div class="abs center note" id="s6x" style="top:1500px">تحقّق من صلاحية الكود وشروطه لدى المتجر</div>
+  </div>
+
+  <!-- 7 Guides -->
+  <div class="scene" id="s7">
+    <div class="abs center h2" id="s7t" style="top:200px">أدلة شراء <span class="teal">ومقارنات</span></div>
+    <div class="abs center h3" id="s7s" style="top:320px">تقرأها قبل ما تدفع ريال</div>
+    <div class="cover" id="c3" style="left:130px;top:620px"><img src="a/amazon-reviews-savemateksa.jpg"></div>
+    <div class="cover" id="c2" style="left:130px;top:620px"><img src="a/aliexpress-saudi-cost-v2.jpg"></div>
+    <div class="cover" id="c1" style="left:130px;top:620px"><img src="a/air-fryer-guide-2026.jpg"></div>
+  </div>
+
+  <!-- 8 Values -->
+  <div class="scene" id="s8">
+    <div class="abs center h2" id="s8t" style="top:330px">ليش <span class="teal">صديق التوفير</span>؟</div>
+    <div class="val" id="v1" style="top:620px"><span class="ck">✓</span><b>مجاني بالكامل</b></div>
+    <div class="val" id="v2" style="top:830px"><span class="ck">✓</span><b>معلومات واضحة قبل الشراء</b></div>
+    <div class="val" id="v3" style="top:1040px"><span class="ck">✓</span><b>متاجر متعددة في مكان واحد</b></div>
+    <div class="val" id="v4" style="top:1250px"><span class="ck">✓</span><b>نعرض الخيارات… والقرار لك</b></div>
+  </div>
+
+  <!-- 9 Outro -->
+  <div class="scene" id="s9">
+    <img class="abs" id="s9logo" src="a/bot-logo.jpg" style="width:380px;height:380px;left:350px;top:360px;border-radius:50%;box-shadow:0 0 0 14px rgba(17,181,201,.25)">
+    <div class="abs center h1" id="s9t" style="top:820px">ابدأ <span class="orange">التوفير</span> الحين</div>
+    <div class="abs center" id="s9u" style="top:1000px;font-size:76px;font-weight:900;direction:ltr;color:#9ff0fb">savemateksa.com</div>
+    <div class="abs center" id="s9b" style="top:1200px"><span class="btn">✈ @savemateksabot</span></div>
+    <div class="abs center h3" id="s9f" style="top:1420px">تابعنا: تيليجرام · تيك توك · إنستقرام · X</div>
+  </div>
+
+  <div id="bar"></div>
+</div>
+<script>
+const DUR = 38;
+const $ = id => document.getElementById(id);
+const clamp = (v,a=0,b=1)=>Math.max(a,Math.min(b,v));
+const seg = (t,a,b)=>clamp((t-a)/(b-a));
+const eo = p=>1-Math.pow(1-p,3);
+const eio = p=>p<.5?4*p*p*p:1-Math.pow(-2*p+2,3)/2;
+const back = p=>{const c=1.70158,c3=c+1;return 1+c3*Math.pow(p-1,3)+c*Math.pow(p-1,2)};
+const elas = p=>p===0||p===1?p:Math.pow(2,-10*p)*Math.sin((p*10-.75)*2*Math.PI/3)+1;
+function S(el,{o=1,x=0,y=0,s=1,r=0}={}){if(typeof el==='string')el=$(el);el.style.opacity=o;el.style.transform=`translate(${x}px,${y}px) scale(${s}) rotate(${r}deg)`}
+// rise-in helper: appears at time a over d seconds
+function rise(id,t,a,d=.6,dist=60){const p=eo(seg(t,a,a+d));S(id,{o:p,y:(1-p)*dist})}
+function pop(id,t,a,d=.6){const p=seg(t,a,a+d);S(id,{o:clamp(p*3),s:p===0?0.001:back(p)})}
+const scenes=[['s1',0,4.2],['s2',4,8.6],['s3',8.4,13.6],['s4',13.4,20.2],['s5',20,24.6],['s6',24.4,29.4],['s7',29.2,33],['s8',32.8,36.2],['s9',36,39]];
+
+// category tiles
+const cats=[['📱','التقنية'],['🏠','المنزل والمطبخ'],['🧴','الجمال والعناية'],['👜','الأزياء'],['🚗','السيارات'],['👶','الأم والطفل'],['⚽','الرياضة والرحلات'],['💼','المكتب والأعمال'],['🏷️','عروض متنوعة']];
+cats.forEach((c,i)=>{const d=document.createElement('div');d.className='abs card tile';d.id='tl'+i;
+  const col=i%3,row=Math.floor(i/3);d.style.left=(735-col*325)+'px';d.style.top=(590+row*325)+'px';
+  d.innerHTML=`<i>${c[0]}</i><b>${c[1]}</b>`;$('s5').appendChild(d)});
+
+function render(t){
+  // background
+  S('b1',{o:.5,x:-150+Math.sin(t*.35)*180,y:200+Math.cos(t*.3)*160});
+  S('b2',{o:.35,x:600+Math.cos(t*.28)*160,y:1300+Math.sin(t*.4)*200});
+  S('b3',{o:.22,x:500+Math.sin(t*.5)*200,y:700+Math.cos(t*.45)*300});
+  $('bar').style.width=(t/DUR*1080)+'px';
+  for(const [id,a,b] of scenes){const o=Math.min(seg(t,a,a+.35),1-seg(t,b-.35,b));$(id).style.opacity=o;$(id).style.display=o>0?'block':'none'}
+
+  // 1 intro
+  {const p=seg(t,.1,1.1);S('s1logo',{o:clamp(p*3),s:p?elas(p)*(1+Math.sin(t*2)*.01):.001,r:(1-eo(p))*-90});
+   rise('s1t',t,.9);rise('s1e',t,1.2);rise('s1g',t,1.6,.7)}
+  // 2 problem
+  {rise('s2a',t,4.3);rise('s2b',t,4.8);
+   [['s2t1',5.5,-6],['s2t2',5.75,4],['s2t3',6.0,-3]].forEach(([id,a,r],i)=>{const p=seg(t,a,a+.6);S(id,{o:clamp(p*3),y:(1-back(p))*-500+Math.sin(t*3+i)*8,r:r*back(p)})});
+   const q=seg(t,6.6,7.2);S('s2q',{o:q,s:q?back(q):.001,r:Math.sin(t*4)*8});rise('s2c',t,7.0)}
+  // 3 bot ways
+  {pop('s3p',t,8.6);rise('s3t',t,8.9);rise('s3s',t,9.6);
+   ['s3w1','s3w2','s3w3'].forEach((id,i)=>{const a=10+i*.4,p=seg(t,a,a+.6);const pulse=seg(t,a+.5,a+.9);S(id,{o:clamp(p*3),s:(p?back(p):.001)*(1+Math.sin(pulse*Math.PI)*.08)})});
+   rise('s3f',t,11.6);const lp=seg(t,12,12.6);S('s3logos',{o:lp,s:.8+.2*back(lp)})}
+  // 4 chat demo
+  {rise('s4t',t,13.6);const pp=seg(t,13.6,14.3);S('s4ph',{o:pp,y:(1-eo(pp))*400});
+   const q='سماعات لاسلكية';const n=Math.floor(q.length*seg(t,14.3,15.3));$('s4typed').textContent=q.slice(0,n)+((t>14.3&&t<15.5&&Math.floor(t*4)%2)?'|':'');
+   S('s4m',{o:t>14.25?1:0});rise('s4b',t,15.7,.4,30);
+   // rows: start unsorted (212,149,189) then sort to (149,189,212)
+   const base=290,gap=140;const sp=eio(seg(t,17.0,17.9));
+   const from={r1:1,r2:2,r3:0},to={r1:0,r2:1,r3:2};
+   [['r1',16.1],['r2',16.35],['r3',16.6]].forEach(([id,a])=>{const p=seg(t,a,a+.45);const slot=from[id]+(to[id]-from[id])*sp;
+     const xoff=id==='r1'?Math.sin(sp*Math.PI)*-60:0;S(id,{o:p,y:base+slot*gap+(1-eo(p))*40,x:xoff});$(id).style.top='0px'});
+   const bp=seg(t,18,18.4);S('r1b',{o:bp,s:bp?back(bp):.001});
+   $('r1').style.boxShadow=bp>0?`0 0 0 ${6*bp}px #FF8A1F`:'none';
+   rise('s4n',t,18.5,.4,30);rise('s4x',t,18.6);rise('s4c',t,18.9)}
+  // 5 categories
+  {rise('s5t',t,20.2);rise('s5s',t,20.6);
+   cats.forEach((c,i)=>{const a=21+((i%3)+Math.floor(i/3))*.18,p=seg(t,a,a+.55);S('tl'+i,{o:clamp(p*3),s:p?back(p):.001,y:Math.sin(t*2+i)*6})})}
+  // 6 coupons
+  {rise('s6t',t,24.6);rise('s6s',t,25);pop('s6a',t,25.3);pop('s6b',t,25.5);
+   $('n1').textContent=Math.round(25*eo(seg(t,25.4,26.6)));$('n2').textContent=Math.round(57*eo(seg(t,25.6,26.8)));
+   const cp=seg(t,26.6,27.2);S('s6c',{o:cp,x:(1-eo(cp))*-900,r:(1-eo(cp))*-8});
+   const tp=seg(t,27.6,28.1);$('s6tap').style.opacity=tp>0&&tp<1?1-tp:0;$('s6tap').style.transform=`scale(${.4+tp*1.4})`;
+   const press=Math.sin(seg(t,27.6,27.9)*Math.PI);$('s6c').style.transform+=` scale(${1-press*.04})`;
+   pop('s6ok',t,27.85,.5);rise('s6x',t,28.2)}
+  // 7 guides
+  {rise('s7t',t,29.4);rise('s7s',t,29.8);
+   [['c1',30.0,-4,0],['c2',30.4,5,330],['c3',30.8,-2,660]].forEach(([id,a,r,yy])=>{const p=seg(t,a,a+.7);S(id,{o:clamp(p*2.5),x:(1-eo(p))*1100,y:yy+Math.sin(t*1.5+yy)*6,r:r*eo(p)})})}
+  // 8 values
+  {rise('s8t',t,33);['v1','v2','v3','v4'].forEach((id,i)=>{const p=seg(t,33.5+i*.45,34.1+i*.45);S(id,{o:p,x:(1-eo(p))*300})})}
+  // 9 outro
+  {const p=seg(t,36.1,36.9);S('s9logo',{o:clamp(p*3),s:p?elas(p):.001});rise('s9t',t,36.4,.5);rise('s9u',t,36.7,.5);
+   const bp=seg(t,36.9,37.4);S('s9b',{o:bp,s:(bp?back(bp):.001)*(1+Math.sin(t*6)*.02)});rise('s9f',t,37.1,.4)}
+}
+window.render=render;window.DUR=DUR;
+const qs=new URLSearchParams(location.search);
+if(qs.has('t'))render(+qs.get('t'));
+else if(!qs.has('capture')){const t0=performance.now();(function loop(){render(((performance.now()-t0)/1000)%DUR);requestAnimationFrame(loop)})()}
+</script>
+</body>
+</html>
