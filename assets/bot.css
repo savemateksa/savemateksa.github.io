@@ -67,3 +67,6 @@
   .bt-banner .bt-logo{margin:0 auto}
   .bt-chips{justify-content:center}
 }
+
+/* البانر تحت الهيرو مباشرة */
+#bot.bt{padding:28px 0 4px}
