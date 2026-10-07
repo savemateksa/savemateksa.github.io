@@ -120,39 +120,10 @@
   #results.grid > .deal-card .details { font-size: .77rem; line-height: 1.4; }
 }
 
-/* Balance the desktop introduction with current product photography. */
+/* Let the desktop introduction span the page without product photography. */
 @media (min-width: 901px) {
   .approved-home-v2 .hero { max-width: none; width: 100%; margin-inline: 0; }
-  .approved-home-v2 .hero-inner.has-showcase {
-    display: grid;
-    grid-template-columns: minmax(0, 1.08fr) minmax(0, .92fr);
-    align-items: center;
-    gap: clamp(2rem, 4vw, 4.5rem);
-  }
-  .approved-home-v2 .hero-inner.has-showcase .home-hero-copy { text-align: right; min-width: 0; }
-  .approved-home-v2 .hero-inner.has-showcase .hero-text { margin-inline: 0; }
-  .approved-home-v2 .hero-inner.has-showcase .hero-actions { justify-content: flex-start; }
-  .approved-home-v2 .hero-inner.has-showcase .hero-stats { margin-inline: 0; }
-  .approved-home-v2 .hero-showcase {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    grid-template-rows: repeat(2, minmax(0, 1fr));
-    gap: .85rem;
-    height: min(390px, 29vw);
-  }
-  .approved-home-v2 .hero-showcase a {
-    display: block;
-    min-width: 0;
-    overflow: hidden;
-    border: 1px solid #d9e7ec;
-    border-radius: 20px;
-    background: #fff;
-    box-shadow: 0 12px 32px rgba(11, 37, 69, .1);
-  }
-  .approved-home-v2 .hero-showcase a:first-child { grid-row: span 2; }
-  .approved-home-v2 .hero-showcase img { display: block; width: 100%; height: 100%; object-fit: contain; }
 }
-@media (max-width: 900px) { .approved-home-v2 .hero-showcase { display: none; } }
 
 /* Keep the mobile Telegram destination identifiable without taking header space. */
 @media (max-width: 600px) {
