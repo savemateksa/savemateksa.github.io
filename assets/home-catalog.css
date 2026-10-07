@@ -128,7 +128,7 @@
     align-items: center;
     gap: clamp(2rem, 4vw, 4.5rem);
   }
-  .approved-home-v2 .hero-inner.has-showcase .hero-copy { text-align: right; min-width: 0; }
+  .approved-home-v2 .hero-inner.has-showcase .home-hero-copy { text-align: right; min-width: 0; }
   .approved-home-v2 .hero-inner.has-showcase .hero-text { margin-inline: 0; }
   .approved-home-v2 .hero-inner.has-showcase .hero-actions { justify-content: flex-start; }
   .approved-home-v2 .hero-inner.has-showcase .hero-stats { margin-inline: 0; }
