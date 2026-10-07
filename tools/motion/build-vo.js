@@ -19,7 +19,9 @@ const B = [0, 4, 8.4, 13.4, 20, 24.4, 29.2, 32.8, 36, 38]; // original scene bou
 const LEAD = 0.3, TAIL = 0.45, FPS = 30;
 // With a Network secret, the proxy adds the xi-api-key header itself, so KEY may be unset.
 const AUTH = KEY ? { 'xi-api-key': KEY } : {};
-const get = async u => { const r = await fetch(API + u, { headers: AUTH }); if (!r.ok) throw new Error(u + ' ' + r.status + ' ' + await r.text()); return r.json(); };
+// Requests go through curl: in cloud sessions Node's fetch takes a different egress path than curl.
+const curl = (u, extra = []) => execFileSync('curl', ['-sS', '--fail-with-body', ...Object.entries(AUTH).flatMap(([k, v]) => ['-H', `${k}: ${v}`]), ...extra, u], { maxBuffer: 1 << 28 });
+const get = async u => JSON.parse(curl(API + u).toString());
 const dur = f => +execFileSync('ffprobe', ['-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', f]).toString();
 
 (async () => {
@@ -41,12 +43,8 @@ const dur = f => +execFileSync('ffprobe', ['-v', 'error', '-show_entries', 'form
     }
     console.log('model:', model);
     for (let i = 0; i < LINES.length; i++) {
-      const r = await fetch(`${API}/text-to-speech/${voice}?output_format=mp3_44100_128`, {
-        method: 'POST', headers: { ...AUTH, 'content-type': 'application/json' },
-        body: JSON.stringify({ text: LINES[i], model_id: model,
-          previous_text: LINES[i - 1], next_text: LINES[i + 1] }) });
-      if (!r.ok) throw new Error('tts ' + i + ' ' + r.status + ' ' + await r.text());
-      fs.writeFileSync(path.join(OUT, `vo_${i}.mp3`), Buffer.from(await r.arrayBuffer()));
+      const body = JSON.stringify({ text: LINES[i], model_id: model, previous_text: LINES[i - 1], next_text: LINES[i + 1] });
+      curl(`${API}/text-to-speech/${voice}?output_format=mp3_44100_128`, ['-H', 'content-type: application/json', '--data-binary', body, '-o', path.join(OUT, `vo_${i}.mp3`)]);
       console.log('vo', i, 'ok');
     }
   }
