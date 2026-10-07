@@ -1,5 +1,5 @@
 // Builds both motion-graphic versions with an ElevenLabs voice-over (no music/SFX).
-// Usage: ELEVENLABS_API_KEY=... node build-vo.js   [ELEVEN_MODEL=<model_id>] [ELEVEN_VOICE=<voice_id>]
+// Usage: node build-vo.js  (key via Network secret for api.elevenlabs.io, or ELEVENLABS_API_KEY=...)   [ELEVEN_MODEL=<model_id>] [ELEVEN_VOICE=<voice_id>]
 const { chromium } = require('/opt/node-tools/node_modules/playwright');
 const fs = require('fs'), path = require('path'), { execFileSync } = require('child_process');
 const KEY = process.env.ELEVENLABS_API_KEY, API = 'https://api.elevenlabs.io/v1';
@@ -17,14 +17,15 @@ const LINES = [
 ];
 const B = [0, 4, 8.4, 13.4, 20, 24.4, 29.2, 32.8, 36, 38]; // original scene boundaries (s)
 const LEAD = 0.3, TAIL = 0.45, FPS = 30;
-const get = async u => { const r = await fetch(API + u, { headers: { 'xi-api-key': KEY } }); if (!r.ok) throw new Error(u + ' ' + r.status + ' ' + await r.text()); return r.json(); };
+// With a Network secret, the proxy adds the xi-api-key header itself, so KEY may be unset.
+const AUTH = KEY ? { 'xi-api-key': KEY } : {};
+const get = async u => { const r = await fetch(API + u, { headers: AUTH }); if (!r.ok) throw new Error(u + ' ' + r.status + ' ' + await r.text()); return r.json(); };
 const dur = f => +execFileSync('ffprobe', ['-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', f]).toString();
 
 (async () => {
   fs.mkdirSync(OUT, { recursive: true });
   let model = process.env.ELEVEN_MODEL, voice = process.env.ELEVEN_VOICE;
   if (!fs.existsSync(path.join(OUT, 'vo_0.mp3'))) {
-    if (!KEY) throw new Error('ELEVENLABS_API_KEY missing');
     if (!model) {
       const ms = await get('/models');
       console.log('models:', ms.map(m => m.model_id).join(', '));
@@ -41,7 +42,7 @@ const dur = f => +execFileSync('ffprobe', ['-v', 'error', '-show_entries', 'form
     console.log('model:', model);
     for (let i = 0; i < LINES.length; i++) {
       const r = await fetch(`${API}/text-to-speech/${voice}?output_format=mp3_44100_128`, {
-        method: 'POST', headers: { 'xi-api-key': KEY, 'content-type': 'application/json' },
+        method: 'POST', headers: { ...AUTH, 'content-type': 'application/json' },
         body: JSON.stringify({ text: LINES[i], model_id: model,
           previous_text: LINES[i - 1], next_text: LINES[i + 1] }) });
       if (!r.ok) throw new Error('tts ' + i + ' ' + r.status + ' ' + await r.text());
