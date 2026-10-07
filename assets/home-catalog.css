@@ -122,7 +122,10 @@
 
 /* Let the desktop introduction span the page without product photography. */
 @media (min-width: 901px) {
-  .approved-home-v2 .hero { max-width: none; width: 100%; margin-inline: 0; }
+  .approved-home-v2 .hero { max-width: none; width: 100%; margin-inline: 0; display: block; }
+  .approved-home-v2 .hero-inner { margin-inline: auto; }
+  .approved-home-v2 .hero-text { margin-inline: auto; }
+  .approved-home-v2 .hero-actions { max-width: 600px; margin-inline: auto; }
 }
 
 /* Keep the mobile Telegram destination identifiable without taking header space. */
