@@ -228,7 +228,11 @@
   addBlogNavLink()
   addPurchaseSummary()
   tagPurchaseLinks()
-  addRelatedProducts()
+  if (document.readyState === 'complete') {
+    setTimeout(addRelatedProducts, 150)
+  } else {
+    window.addEventListener('load', () => setTimeout(addRelatedProducts, 150), { once: true })
+  }
   if (!search || !cards.length) return
   let category = 'الكل'
   const normalize = value => value.toLocaleLowerCase('ar').trim()
