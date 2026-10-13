@@ -46,8 +46,34 @@ gtag('config', 'G-88LRQWDRQZ');
 <meta name="apple-mobile-web-app-title" content="صديق التوفير">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="apple-touch-icon" sizes="180x180" href="/assets/pwa/icon-180.png">
-<link rel="stylesheet" href="/assets/mobile-fixes.css">
-<link rel="stylesheet" href="/assets/product-landing.css">
+
+
+<style id="critical-landing-css">.product-landing{max-width:980px}
+.product-landing>header{background:linear-gradient(135deg,#071f33,#0c3850);color:#fff;border-radius:28px;padding:clamp(1.5rem,4vw,3rem);margin-bottom:1.25rem;box-shadow:var(--shadow)}
+.product-landing>header .category{color:#6ee8f5}
+.product-landing>header h1{max-width:800px;margin:.45rem 0 1rem}
+.product-landing>header time{color:#c8d9e1}
+.product-landing .article-content>p:first-child{font-size:1.2rem;line-height:1.95;color:var(--ink);font-weight:650}
+.product-highlights{margin:0 0 1.25rem;padding:1.25rem;background:#fff;border:1px solid var(--line);border-radius:22px;box-shadow:0 9px 30px rgba(7,31,51,.05)}
+.product-highlights h2{font-size:1.35rem;margin:0 0 .8rem}
+.highlight-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem}
+.highlight-card{background:var(--ice);border-right:4px solid var(--cyan);border-radius:12px;padding:.8rem 1rem;font-weight:800;line-height:1.6}
+.product-landing .purchase-summary{margin:0 0 1.25rem;padding:1.3rem 1.5rem;border-radius:22px;box-shadow:0 9px 30px rgba(7,31,51,.06)}
+.product-landing .purchase-summary h2{font-size:1.45rem}
+.product-landing .purchase-links a{padding:.75rem 1rem}
+@media(max-width:600px){.product-landing{margin-top:1.5rem}.product-landing>header{border-radius:22px;padding:1.35rem}.highlight-grid{grid-template-columns:1fr}.product-landing .article-content>p:first-child{font-size:1.08rem}}
+
+.site-header nav{scrollbar-width:none}
+.site-header nav::-webkit-scrollbar{display:none}
+.panel-link{color:var(--cyan-dark);font-weight:900;text-decoration:none;margin-top:auto}
+.hero-panel strong{font-size:clamp(2.2rem,5vw,4rem);line-height:1.1}
+.hero-panel span{margin-top:.65rem}
+@media(max-width:900px){
+  .header-inner{flex-wrap:wrap}
+  .site-header nav{order:3;display:flex;flex:1 0 100%;gap:1.1rem;overflow-x:auto;padding:.35rem 0 .15rem}
+  .site-header nav a{white-space:nowrap;font-size:.95rem}
+}
+</style>
 </head>
 <body>
   <a class="skip" href="#main">انتقل إلى المحتوى</a>
@@ -111,21 +137,21 @@ gtag('config', 'G-88LRQWDRQZ');
 @media(max-width:600px){.article:has(.savemate-product-detail){margin-top:1.5rem}.article:has(.savemate-product-detail)>header{border-radius:22px;padding:1.35rem}.highlight-grid{grid-template-columns:1fr}.article:has(.savemate-product-detail) .article-content>p:first-child{font-size:1.08rem}}
 
 </style><section class="purchase-summary" aria-labelledby="purchase-title"><h2 id="purchase-title">المتاجر المتاحة</h2><p>السعر والتوفر يتغيران داخل المتجر؛ تحقق منهما قبل إتمام الشراء.</p><div class="purchase-links"><a class="buy-link-top" href="https://www.amazon.sa/-/en/DJI-Accessory-Drone-Level-Detection-Tangle-Free/dp/B0GL2R1Z88?crid=1CDKS6RJ5HEAA&amp;dib=eyJ2IjoiMSJ9.Ru7HsQYDBMCoaGsfr8aJjbSKFQDUQJ_3_y3BAy0Wq8Iul5Rp7JL2JQdZuEP2yOWerZgdkgQhbjBR8PcPVHWr5i_V0lPmjoVGEcOyj_cAprdW35NayJHoaq56VqhHlE64Da0MqtURgSH-rMzy-i0Ig5n_CdlBG6Bpyrv9H3NTnxVQqh45GMLRZhqRK3rrjyTLufTXr9zlkArzKdRvQqKT6O37B7uwbYdOkw2cjVFegtvlTa-rbXDMXknvr--cHsbL4rX51nOD6CHVfKQlhctog7NJ1-CDjk_mtg6IURqq_nc.BoTGJphrcdCEIueG3R8T05Dk1LZBkHx4c2gvvPgbdHc&amp;dib_tag=se&amp;keywords=DJI%2BROMO&amp;qid=1787734826&amp;sprefix=dji%2Bromo%2Caps%2C485&amp;sr=8-2&amp;ufe=app_do%3Aamzn1.fos.aabdf269-a428-47f8-9887-1da97c9a6f47&amp;th=1&amp;linkCode=ll2&amp;tag=alharbi4202-21&amp;linkId=23861d4aedd9bb91ecd30c01daf99db6&amp;ref_=as_li_ss_tl" target="_blank" rel="nofollow sponsored noopener">عرض السعر لدى 🛒 شراء من Amazon</a></div></section><section class="product-highlights" aria-labelledby="highlights-title"><h2 id="highlights-title">أبرز ما يقدمه المنتج</h2><div class="highlight-grid"><div class="highlight-card">تصميم شفاف يعرض المكونات الداخلية بدقة عالية</div><div class="highlight-card">تقنية اكتشاف العقبات من الطائرات بدون طيار لتجنب الأجسام الرقيقة</div><div class="highlight-card">قوة شفط فائقة تصل إلى 25,000 باسكال لتنظيف عميق</div></div></section><div dir="rtl">
-<figure class="wp-block-image size-large"><img fetchpriority="high" src="/assets/media/2026/08/61ocnyfrljl._ac_sl1500_.jpg" alt="مكنسة روبوتية DJI ROMO P مع عدة ملحقات" decoding="async"></figure>
+<figure class="wp-block-image size-large"><img loading="lazy" src="/assets/media/2026/08/61ocnyfrljl._ac_sl1500_.jpg" alt="مكنسة روبوتية DJI ROMO P مع عدة ملحقات" decoding="async"></figure>
 <p>تعتبر مكنسة DJI ROMO P من الحلول الذكية والمتقدمة لتنظيف المنازل، حيث تجمع بين تصميم شفاف أنيق وتقنيات متطورة مستوحاة من الطائرات بدون طيار. تتميز بقوة شفط تصل إلى 25,000 باسكال، مما يضمن تنظيفاً عميقاً وفعالاً. كما تحتوي على أذرع روبوتية قابلة للتمدد تساعد في الوصول إلى الزوايا والحواف الصعبة. بالإضافة إلى ذلك، توفر نظام توزيع محلول تنظيف ومعطر للأرضيات مباشرة على ممسحاتها. قاعدة التنظيف الذاتي تضمن غسل الممسحات وتفريغ الغبار تلقائياً، مما يقلل الحاجة للصيانة حتى 200 يوم. هذه المكنسة مثالية لمن يبحث عن جهاز تنظيف ذكي وقوي يوفر الوقت والجهد في المنزل.</p>
-<figure class="wp-block-image size-large"><img src="/assets/media/2026/08/61df3gut1yl._ac_sl1500_.jpg" alt="مكنسة روبوتية DJI ROMO P مع عدة ملحقات - صورة إضافية" loading="lazy" decoding="async"></figure>
-<figure class="wp-block-image size-large"><img src="/assets/media/2026/08/61cva4r-awl._ac_sl1500_.jpg" alt="مكنسة روبوتية DJI ROMO P مع عدة ملحقات - تفاصيل المنتج" loading="lazy" decoding="async"></figure>
+<figure class="wp-block-image size-large"><img loading="lazy" src="/assets/media/2026/08/61df3gut1yl._ac_sl1500_.jpg" alt="مكنسة روبوتية DJI ROMO P مع عدة ملحقات - صورة إضافية" decoding="async"></figure>
+<figure class="wp-block-image size-large"><img loading="lazy" src="/assets/media/2026/08/61cva4r-awl._ac_sl1500_.jpg" alt="مكنسة روبوتية DJI ROMO P مع عدة ملحقات - تفاصيل المنتج" decoding="async"></figure>
 <h2>أبرز المميزات</h2>
 <ul><li>تصميم شفاف يعرض المكونات الداخلية بدقة عالية</li><li>تقنية اكتشاف العقبات من الطائرات بدون طيار لتجنب الأجسام الرقيقة</li><li>قوة شفط فائقة تصل إلى 25,000 باسكال لتنظيف عميق</li><li>أذرع روبوتية قابلة للتمدد للوصول إلى الزوايا والحواف</li></ul>
-<figure class="wp-block-image size-large"><img src="/assets/media/2026/08/61qbeie8sol._ac_sl1500_.jpg" alt="مكنسة روبوتية DJI ROMO P مع عدة ملحقات - المميزات" loading="lazy" decoding="async"></figure>
+<figure class="wp-block-image size-large"><img loading="lazy" src="/assets/media/2026/08/61qbeie8sol._ac_sl1500_.jpg" alt="مكنسة روبوتية DJI ROMO P مع عدة ملحقات - المميزات" decoding="async"></figure>
 <h2>ما المشكلة التي يساعد المنتج على حلها؟</h2>
 <p>تساعد هذه المكنسة على حل مشكلة التنظيف غير الفعال في الزوايا والأماكن الضيقة، بالإضافة إلى صعوبة التعامل مع العقبات الصغيرة مثل الكابلات والنعال، مع تقليل الحاجة للصيانة المتكررة.</p>
 <h2>الاستخدامات</h2>
 <ul><li>تنظيف شامل للأرضيات المختلفة بفضل قوة الشفط العالية</li><li>الوصول إلى الزوايا والحواف الصعبة باستخدام الأذرع الروبوتية</li><li>توزيع محلول التنظيف والمعطر على الممسحات تلقائياً</li></ul>
-<figure class="wp-block-image size-large"><img src="/assets/media/2026/08/41m5y9qv-tl._ac_.jpg" alt="مكنسة روبوتية DJI ROMO P مع عدة ملحقات - الاستخدامات" loading="lazy" decoding="async"></figure>
+<figure class="wp-block-image size-large"><img loading="lazy" src="/assets/media/2026/08/41m5y9qv-tl._ac_.jpg" alt="مكنسة روبوتية DJI ROMO P مع عدة ملحقات - الاستخدامات" decoding="async"></figure>
 <h2>لمن يناسب هذا المنتج؟</h2>
 <p>مناسب للأسر والأفراد الباحثين عن حلول تنظيف ذكية ومتطورة توفر الوقت والجهد، وكذلك لمن يهتمون بالتقنيات الحديثة في أجهزة المنزل.</p>
-<figure class="wp-block-image size-large"><img src="/assets/media/2026/08/31vt8rk9ezl._ac_.jpg" alt="مكنسة روبوتية DJI ROMO P مع عدة ملحقات - صورة المنتج" loading="lazy" decoding="async"></figure>
+<figure class="wp-block-image size-large"><img loading="lazy" src="/assets/media/2026/08/31vt8rk9ezl._ac_.jpg" alt="مكنسة روبوتية DJI ROMO P مع عدة ملحقات - صورة المنتج" decoding="async"></figure>
 <h2>روابط الشراء</h2>
 <h3>Amazon</h3>
 <p>تحقق من السعر الحالي عبر الرابط</p>
