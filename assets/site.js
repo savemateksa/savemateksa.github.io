@@ -9,8 +9,9 @@
       }
     }
     document.querySelectorAll('.buy-link').forEach(link => {
+      if (!/[طظ][§±]/.test(link.textContent || '')) return
       const store = /AliExpress|SHEIN|Amazon/i.exec(link.textContent || '')?.[0]
-      if (store) link.textContent = `عرض المنتج على ${store}`
+      if (store) link.textContent = `عرض السعر لدى ${store}`
     })
     document.querySelectorAll('.article-content h2, .article-content p').forEach(node => {
       if (/[طظ][§±]/.test(node.textContent || '')) {
@@ -129,9 +130,9 @@
     links.forEach(link => {
       const item = document.createElement('a')
       item.href = link.href
-      item.target = '_blank'
+      if (!/aliexpress\.com/i.test(link.href || '')) item.target = '_blank'
       item.rel = 'nofollow sponsored noopener'
-      item.textContent = link.textContent.replace(/^عرض المنتج على\s*/i, 'الشراء من ')
+      item.textContent = link.textContent.replace(/^(عرض المنتج على|تحقق من المنتج في)\s*/i, 'عرض السعر لدى ')
       list.appendChild(item)
     })
     article.insertBefore(box, article.querySelector('.article-content'))
@@ -209,7 +210,7 @@
     }
   }
   const tagPurchaseLinks = () => {
-    document.querySelectorAll('.article-content .buy-link').forEach(link => {
+    document.querySelectorAll('.article-content .buy-link, .article-content .buy-link-top, .purchase-links a').forEach(link => {
       try {
         const url = new URL(link.href)
         if (!/^https?:$/.test(url.protocol)) return
@@ -226,6 +227,7 @@
   tagPurchaseLinks()
   addBlogNavLink()
   addPurchaseSummary()
+  tagPurchaseLinks()
   addRelatedProducts()
   if (!search || !cards.length) return
   let category = 'الكل'
