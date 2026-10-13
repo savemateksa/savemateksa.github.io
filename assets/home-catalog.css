@@ -144,3 +144,12 @@
   }
   .approved-home-v2 .site-header .telegram.compact::after { content: none; }
 }
+
+/* Gemini product card metadata and actions */
+.deal-card .card-meta {display:flex;align-items:center;justify-content:space-between;gap:.5rem;flex-wrap:wrap}
+.deal-card .store-badge {font-size:.8rem;padding:.15rem .5rem;border-radius:4px;background-color:rgba(0,0,0,.05)}
+.deal-card .card-actions {display:flex;align-items:center;justify-content:space-between;gap:.75rem;margin-top:auto;padding-top:.75rem;flex-wrap:wrap}
+.deal-card .store-link {font-weight:600;text-decoration:none}
+.deal-card .price-status {font-size:.9rem;opacity:.85}
+#results.grid > .deal-card .card-actions .details {margin-top:0}
+.deal-card .card-actions > * {overflow-wrap:anywhere;min-width:0}
