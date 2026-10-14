@@ -8,12 +8,12 @@
         return value
       }
     }
-    document.querySelectorAll('.buy-link').forEach(link => {
+    document.querySelectorAll('.product-purchase .buy-link').forEach(link => {
       if (!/[طظ][§±]/.test(link.textContent || '')) return
       const store = /AliExpress|SHEIN|Amazon/i.exec(link.textContent || '')?.[0]
       if (store) link.textContent = `عرض السعر لدى ${store}`
     })
-    document.querySelectorAll('.article-content h2, .article-content p').forEach(node => {
+    document.querySelectorAll('.product-purchase h2, .product-purchase p').forEach(node => {
       if (/[طظ][§±]/.test(node.textContent || '')) {
         if (node.matches('h2')) node.textContent = 'روابط الشراء'
         else if ((node.textContent || '').includes('طھ')) node.textContent = 'تحقق من الرابط لمعرفة السعر الحالي والتوفر والشحن.'
@@ -119,6 +119,7 @@
     } catch (_) {}
   }
   const addPurchaseSummary = () => {
+    if (!document.querySelector('.product-purchase')) return
     const article = document.querySelector('.article')
     const links = [...document.querySelectorAll('.article-content .buy-link')]
     if (!article || !links.length || document.querySelector('.purchase-summary')) return
@@ -161,6 +162,7 @@
     document.head.appendChild(script)
   }
   const updateProductSharingMeta = () => {
+    if (!document.querySelector('.product-purchase')) return
     const article = document.querySelector('.article')
     if (!article) return
     const title = article.querySelector('h1')?.textContent?.trim()
@@ -210,6 +212,7 @@
     }
   }
   const tagPurchaseLinks = () => {
+    if (!document.querySelector('.product-purchase')) return
     document.querySelectorAll('.article-content .buy-link, .article-content .buy-link-top, .purchase-links a').forEach(link => {
       try {
         const url = new URL(link.href)
