@@ -1,0 +1,48 @@
+
+  .savemate-footer-follow {
+    text-align: right;
+    font-family: inherit;
+  }
+  .savemate-follow-heading {
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+  .savemate-badges-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: flex-start;
+  }
+  .sm-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 8px 14px;
+    background-color: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 8px;
+    color: #f8fafc;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+  }
+  .sm-badge svg {
+    width: 15px;
+    height: 15px;
+    opacity: 0.9;
+  }
+  .sm-badge:hover {
+    background-color: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.35);
+    transform: translateY(-2px);
+    color: #ffffff;
+  }
+  .sm-badge-yt:hover { border-color: #ef4444; background-color: rgba(239, 68, 68, 0.15); }
+  .sm-badge-ig:hover { border-color: #ec4899; background-color: rgba(236, 72, 153, 0.15); }
+  .sm-badge-fb:hover { border-color: #3b82f6; background-color: rgba(59, 130, 246, 0.15); }
+  .sm-badge-tg:hover { border-color: #38bdf8; background-color: rgba(56, 189, 248, 0.15); }
+
+.savemate-footer-follow .sm-badge{box-sizing:border-box;min-height:40px;white-space:nowrap}.savemate-footer-follow .sm-badge svg{flex:0 0 15px}.savemate-footer-follow .savemate-follow-heading{margin-top:0}@media(prefers-reduced-motion:reduce){.savemate-footer-follow .sm-badge{transition:none;transform:none}}
