@@ -14,11 +14,11 @@
   <meta property="og:site_name" content="صديق التوفير">
   <meta property="og:title" content="العروض والمنتجات">
   <meta property="og:description" content="منتجات وعروض مختارة مع روابط شراء مباشرة من أمازون وعلي إكسبريس وشي إن">
-  <meta property="og:url" content="https://savemateksa.com/">
+  <meta property="og:url" content="https://savemateksa.com/articles/">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="العروض والمنتجات">
   <meta name="twitter:description" content="منتجات وعروض مختارة مع روابط شراء مباشرة من أمازون وعلي إكسبريس وشي إن">
-  <link rel="canonical" href="https://savemateksa.com/">
+  
   <link rel="alternate" type="application/rss+xml" title="صديق التوفير" href="/feed.xml">
   <link rel="stylesheet" href="/assets/style.css?v=20260924-shared-nav2">
   <link rel="stylesheet" href="/assets/social.css">
@@ -44,7 +44,33 @@ gtag('config', 'G-88LRQWDRQZ');
 <meta name="apple-mobile-web-app-title" content="صديق التوفير">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="apple-touch-icon" sizes="180x180" href="/assets/pwa/icon-180.png">
-</head>
+<style id="critical-landing-css">.product-landing{max-width:980px}
+.product-landing>header{background:linear-gradient(135deg,#071f33,#0c3850);color:#fff;border-radius:28px;padding:clamp(1.5rem,4vw,3rem);margin-bottom:1.25rem;box-shadow:var(--shadow)}
+.product-landing>header .category{color:#6ee8f5}
+.product-landing>header h1{max-width:800px;margin:.45rem 0 1rem}
+.product-landing>header time{color:#c8d9e1}
+.product-landing .article-content>p:first-child{font-size:1.2rem;line-height:1.95;color:var(--ink);font-weight:650}
+.product-highlights{margin:0 0 1.25rem;padding:1.25rem;background:#fff;border:1px solid var(--line);border-radius:22px;box-shadow:0 9px 30px rgba(7,31,51,.05)}
+.product-highlights h2{font-size:1.35rem;margin:0 0 .8rem}
+.highlight-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem}
+.highlight-card{background:var(--ice);border-right:4px solid var(--cyan);border-radius:12px;padding:.8rem 1rem;font-weight:800;line-height:1.6}
+.product-landing .purchase-summary{margin:0 0 1.25rem;padding:1.3rem 1.5rem;border-radius:22px;box-shadow:0 9px 30px rgba(7,31,51,.06)}
+.product-landing .purchase-summary h2{font-size:1.45rem}
+.product-landing .purchase-links a{padding:.75rem 1rem}
+@media(max-width:600px){.product-landing{margin-top:1.5rem}.product-landing>header{border-radius:22px;padding:1.35rem}.highlight-grid{grid-template-columns:1fr}.product-landing .article-content>p:first-child{font-size:1.08rem}}
+
+.site-header nav{scrollbar-width:none}
+.site-header nav::-webkit-scrollbar{display:none}
+.panel-link{color:var(--cyan-dark);font-weight:900;text-decoration:none;margin-top:auto}
+.hero-panel strong{font-size:clamp(2.2rem,5vw,4rem);line-height:1.1}
+.hero-panel span{margin-top:.65rem}
+@media(max-width:900px){
+  .header-inner{flex-wrap:wrap}
+  .site-header nav{order:3;display:flex;flex:1 0 100%;gap:1.1rem;overflow-x:auto;padding:.35rem 0 .15rem}
+  .site-header nav a{white-space:nowrap;font-size:.95rem}
+}
+</style>
+<link rel="canonical" href="https://savemateksa.com/articles/"></head>
 <body>
   <a class="skip" href="#main">انتقل إلى المحتوى</a>
   <header class="site-header">
@@ -79,7 +105,7 @@ gtag('config', 'G-88LRQWDRQZ');
     </div>
     <p class="copyright">© 2026 صديق التوفير</p>
   </footer>
-  <script src="/assets/site.js" defer></script>
+  <script src="/assets/site.js?v=20261014-technical-seo" defer></script>
 <script>(function(){const grid=document.querySelector('section.grid');const nav=document.querySelector('.savemate-pagination');const status=document.querySelector('.pagination-status');const wrap=document.querySelector('.pagination-wrap');if(!grid||!nav||!status||!wrap)return;const cards=[...grid.children],size=12,input=document.getElementById('articles-search'),chips=[...document.querySelectorAll('[data-afilter]')],empty=document.querySelector('.articles-empty');let cat='الكل';const norm=v=>(v||'').toLocaleLowerCase('ar').replace(/[أإآ]/g,'ا').replace(/ة/g,'ه').replace(/ى/g,'ي').trim();function list(){const q=norm(input&&input.value);return cards.filter(c=>(cat==='الكل'||c.dataset.category===cat)&&(!q||norm(c.dataset.search+' '+c.textContent).includes(q)))}function show(page){const l=list(),pages=Math.ceil(l.length/size);page=Math.min(Math.max(page,1),pages||1);cards.forEach(c=>c.style.display='none');l.forEach((c,i)=>{if(i>=(page-1)*size&&i<page*size)c.style.display=''});if(empty)empty.hidden=l.length>0;nav.replaceChildren();if(pages<=1){wrap.hidden=true;return}wrap.hidden=false;status.textContent='الصفحة '+page+' من '+pages;for(let number=1;number<=pages;number++){const link=document.createElement('a');link.href='#main';link.textContent=number;link.setAttribute('aria-label','الصفحة '+number+' من '+pages);if(number===page){link.className='active';link.setAttribute('aria-current','page')}link.addEventListener('click',event=>{event.preventDefault();show(number);grid.scrollIntoView({behavior:'smooth',block:'start'})});nav.append(link)}}chips.forEach(ch=>ch.addEventListener('click',()=>{cat=ch.dataset.afilter;chips.forEach(o=>{o.classList.toggle('active',o===ch);o.setAttribute('aria-pressed',o===ch?'true':'false')});show(1)}));if(input)input.addEventListener('input',()=>show(1));show(1)})();</script><script defer src="/assets/pwa-register.js?v=20260924-1"></script>
 </body>
 </html>

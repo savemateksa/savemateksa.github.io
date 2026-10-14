@@ -54,7 +54,7 @@
     responsiveStyle.href = '/assets/mobile-fixes.css'
     document.head.appendChild(responsiveStyle)
   }
-  if (!document.head.querySelector('#critical-landing-css') && !document.head.querySelector('link[href="/assets/product-landing.css"]')) {
+  if (document.querySelector('.product-purchase') && !document.head.querySelector('#critical-landing-css') && !document.head.querySelector('link[href="/assets/product-landing.css"]')) {
     const landingStyle = document.createElement('link')
     landingStyle.rel = 'stylesheet'
     landingStyle.href = '/assets/product-landing.css'
