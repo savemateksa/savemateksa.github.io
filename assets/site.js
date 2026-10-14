@@ -211,19 +211,7 @@
       nav.insertBefore(link, nav.querySelector('a[href="/about/"]'))
     }
   }
-  const tagPurchaseLinks = () => {
-    if (!document.querySelector('.product-purchase')) return
-    document.querySelectorAll('.article-content .buy-link, .article-content .buy-link-top, .purchase-links a').forEach(link => {
-      try {
-        const url = new URL(link.href)
-        if (!/^https?:$/.test(url.protocol)) return
-        if (!url.searchParams.has('utm_source')) url.searchParams.set('utm_source', 'savemateksa')
-        if (!url.searchParams.has('utm_medium')) url.searchParams.set('utm_medium', 'site')
-        if (!url.searchParams.has('utm_campaign')) url.searchParams.set('utm_campaign', 'product')
-        link.href = url.toString()
-      } catch (_) {}
-    })
-  }
+  const tagPurchaseLinks = () => { /* Attribution records clicks without rewriting affiliate URLs. */ }
   // Product JSON-LD is intentionally disabled; incomplete Product data causes Google warnings.
   updateProductSharingMeta()
   ensureShareButtons()
