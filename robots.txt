@@ -1,3 +1,4 @@
 User-agent: *
 Allow: /
+Disallow: /p/
 Sitemap: https://savemateksa.com/sitemap.xml
