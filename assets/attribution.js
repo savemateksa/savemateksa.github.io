@@ -1,14 +1,35 @@
 (() => {
   'use strict'
   const endpoint = 'https://events.savemateksa.com/events'
-  const aliases = { tiktok:'tiktok', ig:'instagram', instagram:'instagram', x:'x', twitter:'x', yt:'youtube', youtube:'youtube', fb:'facebook', facebook:'facebook', threads:'threads', tg:'telegram', telegram:'telegram' }
+  const aliases = { tiktok:'tiktok', ig:'instagram', instagram:'instagram', x:'x', twitter:'x', yt:'youtube', youtube:'youtube', fb:'facebook', facebook:'facebook', threads:'threads', tg:'telegram', telegram:'telegram', search:'search', google:'search', bing:'search' }
+  const referrerSource = () => {
+    try {
+      const referrer = new URL(document.referrer)
+      if (!/^https?:$/.test(referrer.protocol)) return ''
+      const host = referrer.hostname.toLowerCase().replace(/\.$/, '')
+      const belongsTo = domain => host === domain || host.endsWith('.' + domain)
+      if (belongsTo('savemateksa.com')) return ''
+      // Match whole domain labels, including country domains, rather than substrings.
+      if (/(^|\.)(google|bing|yahoo|duckduckgo|yandex|baidu)\.(?:[a-z]{2,63}|(?:com|co)\.[a-z]{2})$/.test(host)) return 'search'
+      const platforms = {
+        tiktok:['tiktok.com'], instagram:['instagram.com'],
+        x:['t.co','x.com','twitter.com'], youtube:['youtube.com','youtu.be'],
+        facebook:['facebook.com','fb.com'], threads:['threads.net','threads.com'],
+        telegram:['t.me','telegram.org']
+      }
+      for (const [source, domains] of Object.entries(platforms)) {
+        if (domains.some(belongsTo)) return source
+      }
+    } catch (_) {}
+    return ''
+  }
   const uuid = () => crypto.randomUUID()
   const params = new URLSearchParams(location.search)
   const incoming = aliases[(params.get('ref') || '').toLowerCase()] || aliases[(params.get('utm_source') || '').toLowerCase()]
   let session
   try { session = JSON.parse(sessionStorage.getItem('sm_attribution') || 'null') } catch (_) {}
   const fresh = !session || !session.id || Date.now() - session.last > 30 * 60 * 1000 || (incoming && incoming !== session.source)
-  if (fresh) session = { id:uuid(), source: incoming || 'direct' }
+  if (fresh) session = { id:uuid(), source: incoming || referrerSource() || 'direct' }
   else if (incoming) session.source = incoming
   session.last = Date.now()
   const save = () => { try { sessionStorage.setItem('sm_attribution', JSON.stringify(session)) } catch (_) {} }
