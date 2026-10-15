@@ -226,13 +226,19 @@
   }
   if (!search || !cards.length) return
   let category = 'الكل'
-  const normalize = value => value.toLocaleLowerCase('ar').trim()
+  const normalize = value => value.toLocaleLowerCase('ar').trim().replace(/[٠-٩۰-۹]/g, d => String('٠١٢٣٤٥٦٧٨٩'.includes(d) ? '٠١٢٣٤٥٦٧٨٩'.indexOf(d) : '۰۱۲۳۴۵۶۷۸۹'.indexOf(d)))
   const render = () => {
     const query = normalize(search.value)
+    const numberQuery = /^#?\s*([0-9]{3,})$/.exec(query)?.[1]
+    if (numberQuery && category !== 'الكل') {
+      category = 'الكل'
+      if (categorySelect) categorySelect.value = category
+      chips.forEach(item => item.classList.toggle('active', item.dataset.filter === category))
+    }
     let visible = 0
     cards.forEach(card => {
       const categoryOk = category === 'الكل' || card.dataset.category === category
-      const searchOk = !query || normalize(card.dataset.search || '').includes(query)
+      const searchOk = numberQuery ? card.dataset.productNumber === numberQuery : !query || normalize(card.dataset.search || '').includes(query)
       const show = categoryOk && searchOk
       card.hidden = !show
       card.style.display = show ? '' : 'none'
@@ -240,6 +246,7 @@
     })
     empty.hidden = visible !== 0
     if (catalogCount) catalogCount.textContent = visible ? `${visible} منتج متاح` : 'لا توجد منتجات مطابقة'
+    document.querySelector('#results')?.dispatchEvent(new CustomEvent('sm:catalog-filtered'))
   }
   search.addEventListener('input', render)
   categorySelect?.addEventListener('change', () => {
