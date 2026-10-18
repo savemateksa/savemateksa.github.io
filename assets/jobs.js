@@ -1,0 +1,31 @@
+(() => {
+  'use strict';
+  const form=document.getElementById('jobs-search');
+  const host=document.getElementById('careerjet-results');
+  if(!form||!host)return;
+  const params=new URLSearchParams(location.search);
+  const input=document.getElementById('jobs-keywords');
+  const city=document.getElementById('jobs-location');
+  const keywords=(params.get('keywords')||'').trim().slice(0,120);
+  const allowed=new Set([...city.options].map(option=>option.value));
+  const locationValue=params.get('location')||'';
+  input.value=keywords;city.value=allowed.has(locationValue)?locationValue:'';
+  const box=host.querySelector('.cj-job-box');
+  box.dataset.search=input.value;box.dataset.location=city.value;
+  document.querySelectorAll('[data-jobs-keyword]').forEach(button=>button.addEventListener('click',()=>{input.value=button.dataset.jobsKeyword;form.requestSubmit();}));
+  const status=document.getElementById('jobs-status');
+  let loaded=false;
+  const fallback=()=>{if(!loaded){host.setAttribute('aria-busy','false');status.textContent='تعذر إظهار الوظائف الآن. جرّب تحديث الصفحة أو تصفح Careerjet من الرابط أدناه.';}};
+  const timer=setTimeout(fallback,20000);
+  const observer=new MutationObserver(()=>{
+    const frame=host.querySelector('iframe');if(!frame)return;
+    frame.title='نتائج وظائف السعودية من Careerjet';
+    frame.addEventListener('load',()=>{loaded=true;clearTimeout(timer);status.textContent='';status.hidden=true;host.setAttribute('aria-busy','false');},{once:true});
+    observer.disconnect();
+  });
+  observer.observe(host,{childList:true,subtree:true});
+  const script=document.createElement('script');script.id='cj-job-box';script.async=true;
+  script.src='https://static.careerjet.org/js/all_widget_job_box_3rd_party.min.js?t='+Date.now();
+  script.addEventListener('error',()=>{clearTimeout(timer);fallback();},{once:true});
+  document.body.appendChild(script);
+})();
