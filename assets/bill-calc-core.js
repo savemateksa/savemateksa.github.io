@@ -10,7 +10,7 @@
   var EXTRA_UNIT = [20, 10];
 
   function num(x, min, max) { x = parseFloat(x); if (!isFinite(x) || x < min) x = min; if (max != null && x > max) x = max; return x; }
-  function r2(x) { return Math.round(x * 100) / 100; }
+  function r2(x) { return Math.round((x + 1e-9) * 100) / 100; }   // half-up, matches NWC's calculator (e.g. 94.875 -> 94.88)
 
   function electricity(o) {
     var kwh = num(o.kwh, 0, 1e6), days = num(o.days == null ? 30 : o.days, 1, 120);
@@ -24,7 +24,7 @@
 
   function water(o) {
     var units = Math.round(num(o.units == null ? 1 : o.units, 1, 200));
-    var perUnit = num(o.m3, 0, 5000);
+    var perUnit = num(o.m3, 0, 100000) / units;      // meter total split equally per unit (as NWC's official calculator does)
     var meter = Math.round(num(o.meter, 0, 4));
     var sewer = o.sewer !== false;
     var left = perUnit, wC = 0, sC = 0, bands = [];

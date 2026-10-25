@@ -51,7 +51,7 @@ gtag('config', 'G-88LRQWDRQZ', {send_page_view:false});
 
 <link rel="stylesheet" href="/assets/footer-follow-seven.css?v=20261014"><script defer src="/assets/attribution.js?v=20261015-referrer1"></script>
 
-<link rel="stylesheet" href="/assets/bill-calc.css?v=20261026-2">
+<link rel="stylesheet" href="/assets/bill-calc.css?v=20261026-3">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "حاسبة فاتورة الكهرباء والماء 2027", "url": "https://savemateksa.com/bill-calculator/", "description": "احسب فاتورة الكهرباء والماء السكنية بالتعريفة الجديدة التي تبدأ في 1 يناير 2027: شرائح الاستهلاك والرسم الثابت والضريبة، حسب الجداول الرسمية للسعودية للطاقة والمياه الوطنية.", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Any", "inLanguage": "ar-SA", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "SAR"}, "publisher": {"@type": "Organization", "name": "صديق التوفير", "url": "https://savemateksa.com/"}}</script></head><body class="approved-home-v2 calc-page"><a class="skip" href="#main">انتقل إلى المحتوى</a><header class="site-header">
     <div class="header-inner">
       <a class="brand" href="/" aria-label="صديق التوفير الرئيسية">
@@ -74,13 +74,13 @@ gtag('config', 'G-88LRQWDRQZ', {send_page_view:false});
 <div id="e-out" class="bc-out" aria-live="polite"></div>
 <p class="bc-note">السعر: 21 هللة لكل كيلوواط ساعة حتى 6,000، و33 هللة لما يزيد عن ذلك. الرسم الثابت: 70 أو 80 أو 90 أو 100 ريال حسب سعة القاطع.</p></section>
 <section class="bc-card" aria-labelledby="w-title"><h2 id="w-title"><i aria-hidden="true">💧</i> الماء والصرف الصحي</h2>
-<div class="bc-two"><label class="bc-field" for="w-m3">استهلاك الوحدة الواحدة (م³ بالشهر)<input lang="en" dir="ltr" type="number" id="w-m3" inputmode="decimal" min="0" max="5000" step="1" value="25"></label>
+<div class="bc-two"><label class="bc-field" for="w-m3">إجمالي استهلاك العداد (م³ بالشهر)<input lang="en" dir="ltr" type="number" id="w-m3" inputmode="decimal" min="0" max="100000" step="1" value="25"><small>الرقم المكتوب في فاتورتك، ونقسمه بالتساوي على الوحدات</small></label>
 <label class="bc-field" for="w-units">عدد الوحدات السكنية على العداد<input lang="en" dir="ltr" type="number" id="w-units" inputmode="numeric" min="1" max="200" step="1" value="1"></label></div>
 <label class="bc-field" for="w-meter">قطر عداد المياه<select id="w-meter"><option value="0">حتى 20 ملم</option><option value="1">21 – 40 ملم</option><option value="2">41 – 65 ملم</option><option value="3">66 – 100 ملم</option><option value="4">أكثر من 100 ملم</option></select><small>يظهر في فاتورتك وفي حسابك على قنوات المياه الوطنية</small></label>
 <label class="bc-field" for="w-old">فاتورة الماء الحالية (اختياري، شاملة الضريبة)<input lang="en" dir="ltr" type="number" id="w-old" inputmode="decimal" min="0" max="1000000" step="1" placeholder="لمقارنة الزيادة"><small>نستخدمها فقط لحساب زيادة الماء، لأن التعريفة السابقة للماء غير منشورة في المصادر الرسمية التي اطلعنا عليها</small></label>
 <label class="bc-check" for="w-sewer"><input type="checkbox" id="w-sewer" checked> خدمة الصرف الصحي متوفرة لدي</label>
 <div id="w-out" class="bc-out" aria-live="polite"></div><p class="bc-note" id="w-tiers"></p>
-<p class="bc-note">الشرائح: 1 ثم 2 ثم 4 ثم 6 ريال للمتر المكعب، والصرف الصحي نصف سعر الماء. ولكل وحدة سكنية إضافية على العداد نفسه 20 ريالًا للماء و10 للصرف. نفترض أن استهلاك الوحدات متساوٍ.</p></section>
+<p class="bc-note">الشرائح: 1 ثم 2 ثم 4 ثم 6 ريال للمتر المكعب، والصرف الصحي نصف سعر الماء. ولكل وحدة سكنية إضافية على العداد نفسه 20 ريالًا للماء و10 للصرف. نقسم استهلاك العداد بالتساوي على الوحدات، مثل حاسبة المياه الوطنية الرسمية.</p></section>
 </div>
 <section class="bc-all" aria-labelledby="all-title"><h2 id="all-title">إجمالي الكهرباء والماء بالشهر</h2><div id="all-out" aria-live="polite"></div><p id="save-tip"></p>
 <div class="bc-actions"><button type="button" class="bc-btn alt" id="bc-reset">إعادة الأرقام الافتراضية</button><a class="bc-btn" href="https://ebranch.nwc.com.sa/interactive-calculators/bill-amount-calculator" target="_blank" rel="noopener">حاسبة المياه الوطنية الرسمية</a></div></section>
@@ -157,4 +157,4 @@ gtag('config', 'G-88LRQWDRQZ', {send_page_view:false});
 </div>
     </div>
     <p class="copyright">© 2026 صديق التوفير</p>
-  </footer><script defer src="/assets/bill-calc-core.js?v=20261026-2"></script><script defer src="/assets/bill-calc.js?v=20261026-2"></script></body></html>
+  </footer><script defer src="/assets/bill-calc-core.js?v=20261026-3"></script><script defer src="/assets/bill-calc.js?v=20261026-3"></script></body></html>
