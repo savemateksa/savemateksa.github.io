@@ -40,6 +40,33 @@
     return { units: units, perUnit: perUnit, bands: bands, waterCons: r2(wC), sewerCons: r2(sC), waterFixed: r2(wF), sewerFixed: r2(sF), subtotal: r2(sub), vat: r2(sub * VAT), total: r2(sub * (1 + VAT)) };
   }
 
-  var api = { electricity: electricity, water: water, VAT: VAT };
+  // OLD residential electricity tariff (valid until 2026-12-31): SEC consumption tariff page = 18 halalas up to 6000 kWh, 30 above.
+  // OLD meter reading/maintenance fee by breaker (SAR/month): ESTIMATE only (not published on the current SEC site); user can override.
+  var OLD_E1 = 0.18, OLD_E2 = 0.30, OLD_METER_FEE = [10, 15, 21, 22];   // 20-99, 100-199, 200-299, 300+ (assumes 300-399)
+  function oldElectricity(o) {
+    var kwh = num(o.kwh, 0, 1e6), fee = num(o.meterFee, 0, 1000);
+    var cons = Math.min(kwh, ELEC_TIER_LIMIT) * OLD_E1 + Math.max(kwh - ELEC_TIER_LIMIT, 0) * OLD_E2;
+    var sub = cons + fee;
+    return { kwh: kwh, cons: r2(cons), meterFee: r2(fee), subtotal: r2(sub), total: r2(sub * (1 + VAT)) };
+  }
+  // Invert: bill amount (incl. VAT) -> kWh under the old tariff.
+  function kwhFromOldBill(o) {
+    var amt = num(o.amount, 0, 1e7), fee = num(o.meterFee, 0, 1000);
+    var net = amt / (1 + VAT) - fee;
+    if (net <= 0) return 0;
+    var lim = ELEC_TIER_LIMIT * OLD_E1;
+    return net <= lim ? net / OLD_E1 : ELEC_TIER_LIMIT + (net - lim) / OLD_E2;
+  }
+  var SUPPORT = { none: 0, employee: 500, retiree: 500, ss: 500, private: 0 };
+  function compare(o) {
+    // o: newElec, newWater (totals incl. VAT), oldElec (total incl. VAT, or null), oldWater (null if unknown), support key
+    var eInc = o.oldElec == null ? null : r2(o.newElec - o.oldElec);
+    var wInc = o.oldWater == null ? null : r2(o.newWater - o.oldWater);
+    var total = (eInc || 0) + (wInc || 0);
+    var sup = SUPPORT[o.support] || 0;
+    return { elecIncrease: eInc, waterIncrease: wInc, totalIncrease: r2(total), support: sup, net: r2(sup - total), partial: (eInc == null || wInc == null) };
+  }
+
+  var api = { electricity: electricity, water: water, VAT: VAT, oldElectricity: oldElectricity, kwhFromOldBill: kwhFromOldBill, compare: compare, OLD_METER_FEE: OLD_METER_FEE, SUPPORT: SUPPORT };
   if (typeof module !== 'undefined' && module.exports) module.exports = api; else root.BillCalc = api;
 })(typeof window !== 'undefined' ? window : globalThis);

@@ -51,7 +51,7 @@ gtag('config', 'G-88LRQWDRQZ', {send_page_view:false});
 
 <link rel="stylesheet" href="/assets/footer-follow-seven.css?v=20261014"><script defer src="/assets/attribution.js?v=20261015-referrer1"></script>
 
-<link rel="stylesheet" href="/assets/bill-calc.css?v=20261025-1">
+<link rel="stylesheet" href="/assets/bill-calc.css?v=20261026-2">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "حاسبة فاتورة الكهرباء والماء 2027", "url": "https://savemateksa.com/bill-calculator/", "description": "احسب فاتورة الكهرباء والماء السكنية بالتعريفة الجديدة التي تبدأ في 1 يناير 2027: شرائح الاستهلاك والرسم الثابت والضريبة، حسب الجداول الرسمية للسعودية للطاقة والمياه الوطنية.", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Any", "inLanguage": "ar-SA", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "SAR"}, "publisher": {"@type": "Organization", "name": "صديق التوفير", "url": "https://savemateksa.com/"}}</script></head><body class="approved-home-v2 calc-page"><a class="skip" href="#main">انتقل إلى المحتوى</a><header class="site-header">
     <div class="header-inner">
       <a class="brand" href="/" aria-label="صديق التوفير الرئيسية">
@@ -62,31 +62,43 @@ gtag('config', 'G-88LRQWDRQZ', {send_page_view:false});
     <details class="home-mobile-nav"><summary aria-label="فتح القائمة"><span></span><span></span><span></span></summary><div class="home-mobile-links"><a href="/#home">الرئيسية</a><a href="/#categories">الأقسام</a><a href="/#products">المنتجات والعروض</a><a href="/partners/">المتاجر</a><a href="/#how">كيف نختار المنتجات؟</a><a href="/#faq">الأسئلة الشائعة</a><a href="/#about">من نحن</a><a href="/#contact">تواصل معنا</a><a href="/articles/">المقالات</a><a href="/jobs/">الوظائف</a></div></details></div>
   </header><main id="main" class="calc-main"><section class="calc-hero"><div class="wrap"><nav class="calc-breadcrumb" aria-label="مسار الصفحة"><a href="/">الرئيسية</a><span aria-hidden="true">/</span><span>حاسبة الفاتورة</span></nav><span class="calc-label">أداة جديدة من صديق التوفير</span><h1>كم ستكون فاتورتك بعد<br><span>التعريفة الجديدة؟</span></h1><p>التعريفة المعدّلة للكهرباء والماء تبدأ من 1 يناير 2027م. اكتب استهلاكك الشهري واعرف فاتورتك التقريبية، مع تفصيل الشرائح والرسم الثابت والضريبة.</p><div class="calc-chips"><span>القطاع السكني</span><span>أرقام من الجداول الرسمية</span><span>بدون تسجيل</span></div></div></section>
 <div class="wrap calc-content">
+<div class="bc-mode" role="tablist" aria-label="طريقة الإدخال"><button type="button" role="tab" id="mode-use" class="on" aria-selected="true">أعرف استهلاكي</button><button type="button" role="tab" id="mode-bill" aria-selected="false">أعرف مبلغ فاتورتي</button></div>
 <div class="bc-grid">
 <section class="bc-card" aria-labelledby="e-title"><h2 id="e-title"><i aria-hidden="true">⚡</i> الكهرباء</h2>
-<label class="bc-field" for="e-kwh">الاستهلاك الشهري (كيلوواط ساعة)<input lang="en" dir="ltr" type="number" id="e-kwh" inputmode="decimal" min="0" max="1000000" step="1" value="1500"><small>تجده في فاتورتك الشهرية أو في تطبيق السعودية للطاقة</small></label>
+<label class="bc-field" data-only="use" for="e-kwh">الاستهلاك الشهري (كيلوواط ساعة)<input lang="en" dir="ltr" type="number" id="e-kwh" inputmode="decimal" min="0" max="1000000" step="1" value="1500"><small>تجده في فاتورتك الشهرية أو في تطبيق السعودية للطاقة</small></label>
+<label class="bc-field" data-only="bill" for="e-bill" hidden>مبلغ فاتورة الكهرباء الحالية (شاملة الضريبة)<input lang="en" dir="ltr" type="number" id="e-bill" inputmode="decimal" min="0" max="10000000" step="1" placeholder="مثال: 320"><small>فاتورة شهر واحد بالتعريفة الحالية، دون متأخرات أو أقساط</small></label>
+<p class="bc-derived" id="e-derived" data-only="bill" hidden></p>
 <label class="bc-field" for="e-breaker">سعة قاطع العداد<select id="e-breaker"><option value="0">من 20 إلى أقل من 100 أمبير</option><option value="1">من 100 إلى أقل من 200 أمبير</option><option value="2">من 200 إلى أقل من 300 أمبير</option><option value="3">300 أمبير فأكثر</option></select><small>يظهر في فاتورتك أو حسابك في تطبيق السعودية للطاقة</small></label>
 <label class="bc-field" for="e-days">عدد أيام الفاتورة<input lang="en" dir="ltr" type="number" id="e-days" inputmode="numeric" min="1" max="120" step="1" value="30"><small>الرسم الثابت يُحسب بنسبة أيام الفاتورة من 30 يومًا</small></label>
+<details class="bc-more"><summary>رسوم العداد في فاتورتك الحالية (اختياري)</summary><label class="bc-field" for="e-fee">رسوم قراءة وصيانة العداد الحالية (ريال)<input lang="en" dir="ltr" type="number" id="e-fee" inputmode="decimal" min="0" max="1000" step="1" value="10"><small>تقدير حسب سعة القاطع، ويفضل أن تكتب الرقم المذكور في فاتورتك. يُستخدم لتقدير الاستهلاك من المبلغ ولمقارنة الزيادة.</small></label></details>
 <div id="e-out" class="bc-out" aria-live="polite"></div>
 <p class="bc-note">السعر: 21 هللة لكل كيلوواط ساعة حتى 6,000، و33 هللة لما يزيد عن ذلك. الرسم الثابت: 70 أو 80 أو 90 أو 100 ريال حسب سعة القاطع.</p></section>
 <section class="bc-card" aria-labelledby="w-title"><h2 id="w-title"><i aria-hidden="true">💧</i> الماء والصرف الصحي</h2>
 <div class="bc-two"><label class="bc-field" for="w-m3">استهلاك الوحدة الواحدة (م³ بالشهر)<input lang="en" dir="ltr" type="number" id="w-m3" inputmode="decimal" min="0" max="5000" step="1" value="25"></label>
 <label class="bc-field" for="w-units">عدد الوحدات السكنية على العداد<input lang="en" dir="ltr" type="number" id="w-units" inputmode="numeric" min="1" max="200" step="1" value="1"></label></div>
 <label class="bc-field" for="w-meter">قطر عداد المياه<select id="w-meter"><option value="0">حتى 20 ملم</option><option value="1">21 – 40 ملم</option><option value="2">41 – 65 ملم</option><option value="3">66 – 100 ملم</option><option value="4">أكثر من 100 ملم</option></select><small>يظهر في فاتورتك وفي حسابك على قنوات المياه الوطنية</small></label>
+<label class="bc-field" for="w-old">فاتورة الماء الحالية (اختياري، شاملة الضريبة)<input lang="en" dir="ltr" type="number" id="w-old" inputmode="decimal" min="0" max="1000000" step="1" placeholder="لمقارنة الزيادة"><small>نستخدمها فقط لحساب زيادة الماء، لأن التعريفة السابقة للماء غير منشورة في المصادر الرسمية التي اطلعنا عليها</small></label>
 <label class="bc-check" for="w-sewer"><input type="checkbox" id="w-sewer" checked> خدمة الصرف الصحي متوفرة لدي</label>
 <div id="w-out" class="bc-out" aria-live="polite"></div><p class="bc-note" id="w-tiers"></p>
 <p class="bc-note">الشرائح: 1 ثم 2 ثم 4 ثم 6 ريال للمتر المكعب، والصرف الصحي نصف سعر الماء. ولكل وحدة سكنية إضافية على العداد نفسه 20 ريالًا للماء و10 للصرف. نفترض أن استهلاك الوحدات متساوٍ.</p></section>
 </div>
 <section class="bc-all" aria-labelledby="all-title"><h2 id="all-title">إجمالي الكهرباء والماء بالشهر</h2><div id="all-out" aria-live="polite"></div><p id="save-tip"></p>
 <div class="bc-actions"><button type="button" class="bc-btn alt" id="bc-reset">إعادة الأرقام الافتراضية</button><a class="bc-btn" href="https://ebranch.nwc.com.sa/interactive-calculators/bill-amount-calculator" target="_blank" rel="noopener">حاسبة المياه الوطنية الرسمية</a></div></section>
-<p class="bc-disclaimer"><strong>تنبيه:</strong> هذه الحاسبة تقدير تعليمي مبني على الجداول المعلنة للقطاع السكني، وليست فاتورة رسمية. تتأثر الفاتورة الفعلية بعدد الأيام وتاريخ القراءة وبيانات حسابك؛ فالاستهلاك قبل 1 يناير 2027م يُحسب بالتعريفة السابقة. الأسعار المعلنة غير شاملة ضريبة القيمة المضافة وتضاف في الفاتورة، ونعرضها هنا بنسبة 15%.</p>
+<section class="bc-card bc-compare" aria-labelledby="cmp-title"><h2 id="cmp-title"><i aria-hidden="true">⚖️</i> الزيادة مقابل دعم 500 ريال</h2>
+<label class="bc-field" for="s-type">وضعك<select id="s-type"><option value="none">بدون احتساب دعم</option><option value="employee">موظف مدني أو عسكري (بدل شهري 500 ريال)</option><option value="retiree">متقاعد أو فرد من عائلة مشترك أو متقاعد متوفى (بدل شهري 500 ريال)</option><option value="ss">أسرة مستفيدة من الضمان الاجتماعي (دعم شهري 500 ريال)</option><option value="private">عامل سعودي في القطاع الخاص (بدون دعم مباشر)</option></select><small>الدعم 500 ريال مرة واحدة بالشهر بافتراض أنك مستحق، حسب إعلان وكالة الأنباء السعودية</small></label>
+<div id="cmp-out" class="bc-out" aria-live="polite"></div><p class="bc-note" id="cmp-note"></p></section>
+<p class="bc-disclaimer"><strong>تنبيه:</strong> هذه الحاسبة تقدير تعليمي مبني على الجداول المعلنة للقطاع السكني، وليست فاتورة رسمية. تتأثر الفاتورة الفعلية بعدد الأيام وتاريخ القراءة وبيانات حسابك؛ فالاستهلاك قبل 1 يناير 2027م يُحسب بالتعريفة السابقة. الأسعار المعلنة غير شاملة ضريبة القيمة المضافة وتضاف في الفاتورة، ونعرضها هنا بنسبة 15%. وتقدير الاستهلاك من مبلغ الفاتورة تقريبي لأنه يعتمد على رسوم العداد وعلى أن الفاتورة لشهر كامل بلا متأخرات؛ الأدق أن تدخل استهلاكك بالكيلوواط ساعة.</p>
 <section class="bc-sources" aria-labelledby="src-title"><h2 id="src-title">المصادر الرسمية</h2><ul>
 <li><a href="https://www.se.com.sa/ar-SA/ourservices/columnc/bills-and-consumption/consumptiontariffs/ct2/ct2" target="_blank" rel="noopener">السعودية للطاقة: تعريفة الاستهلاك بعد التعديل</a></li>
 <li><a href="https://www.nwc.com.sa/AR/Pages/AdujstedWaterandWastewaterServicesRate.aspx" target="_blank" rel="noopener">شركة المياه الوطنية: تعريفة خدمات المياه والصرف الصحي المعدّلة</a></li>
 <li><a href="https://www.nwc.com.sa/AR/Pages/FAQS.aspx" target="_blank" rel="noopener">المياه الوطنية: الأسئلة الشائعة عن التعريفة</a></li>
+<li><a href="https://www.se.com.sa/ar-SA/Ourservices/ColumnC/Bills-and-Consumption/ConsumptionTariffs/CT1/" target="_blank" rel="noopener">السعودية للطاقة: تعريفة الاستهلاك الحالية (سارية حتى 2026/12/31)</a></li>
 <li><a href="https://www.spa.gov.sa/N2709796" target="_blank" rel="noopener">وكالة الأنباء السعودية: الإجراءات الداعمة للمواطنين بالتزامن مع التعديل</a></li></ul></section>
 <section class="bc-faq" aria-labelledby="faq-title"><h2 id="faq-title">أسئلة شائعة</h2>
 <details><summary>هل تُحسب كل الكمية بسعر الشريحة الأعلى؟</summary><p>لا. في الماء يُحتسب الاستهلاك في كل شريحة بتعريفتها ثم تُجمع القيم، حسب الأسئلة الشائعة لشركة المياه الوطنية. وفي الكهرباء نحسب بالطريقة نفسها: الشريحة الأعلى تنطبق على ما يزيد عن 6,000 كيلوواط ساعة فقط.</p></details>
+<details><summary>كيف تقدّرون الاستهلاك من مبلغ الفاتورة؟</summary><p>نخصم ضريبة 15% ثم رسوم العداد، ونقسم الباقي على التعريفة الحالية: 18 هللة لكل كيلوواط ساعة حتى 6,000 و30 هللة لما يزيد عليها (حسب موقع السعودية للطاقة). رسوم العداد تقدير تعدّله من فاتورتك، والنتيجة تقريبية.</p></details>
+<details><summary>لماذا لا توجد زيادة الماء من مبلغ الفاتورة؟</summary><p>لأن جدول تعريفة الماء السابقة غير منشور في الصفحات الرسمية التي اطلعنا عليها. لذلك نطلب استهلاكك بالمتر المكعب (المكتوب في فاتورتك)، وإن أدخلت مبلغ فاتورة الماء الحالية نحسب لك الزيادة.</p></details>
+<details><summary>كيف تتم مقارنة الزيادة بالدعم؟</summary><p>نطرح فاتورتك الحالية من الجديدة (شاملة الضريبة) للكهرباء والماء، ونقارن مجموع الزيادة بدعم 500 ريال إن كنت من الفئات المشمولة. هذه مقارنة تقريبية، وصرف الدعم يخضع لضوابط الجهات المختصة.</p></details>
 <details><summary>متى تبدأ التعريفة الجديدة؟</summary><p>من 1 يناير 2027م، ولا تُطبق بأثر رجعي؛ فالاستهلاك قبل هذا التاريخ يُحسب بالتعريفة السابقة.</p></details>
 <details><summary>ما الفرق بين تعريفة الاستهلاك والرسم الثابت؟</summary><p>تعريفة الاستهلاك تعتمد على كمية ما تستهلكه. والرسم الثابت يُدفع شهريًا حسب سعة قاطع العداد في الكهرباء، وحسب قطر العداد وعدد الوحدات في الماء، ويستمر حتى لو لم يكن هناك استهلاك.</p></details>
 <details><summary>هل تشمل الحاسبة القطاعات التجارية والحكومية؟</summary><p>الحاسبة الحالية للقطاع السكني فقط. تعريفة القطاعات الأخرى متاحة في الروابط الرسمية أعلاه.</p></details></section>
@@ -145,4 +157,4 @@ gtag('config', 'G-88LRQWDRQZ', {send_page_view:false});
 </div>
     </div>
     <p class="copyright">© 2026 صديق التوفير</p>
-  </footer><script defer src="/assets/bill-calc-core.js?v=20261025-1"></script><script defer src="/assets/bill-calc.js?v=20261025-1"></script></body></html>
+  </footer><script defer src="/assets/bill-calc-core.js?v=20261026-2"></script><script defer src="/assets/bill-calc.js?v=20261026-2"></script></body></html>
