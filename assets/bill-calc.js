@@ -1,7 +1,5 @@
-/* SaveMateKSA bill calculator UI (v4: strict input validation, all sectors, usage / bill-amount modes, increase vs 500 SAR support) */
 (function () {
-  var B = window.BillCalc; if (!B) return;
-  var mode = 'use';
+  var B=window.BillCalc; if(!B)return;
   function $(id) { return document.getElementById(id); }
   function fmt(n) { return n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
   function whole(n) { return n.toLocaleString('en-US', { maximumFractionDigits: 2 }); }
@@ -30,26 +28,14 @@
   function showErr(id, msg) {
     var el = $(id), lab = el.closest('label'), box = $('err-' + id);
     if (!box) { box = document.createElement('small'); box.id = 'err-' + id; box.className = 'bc-err'; box.setAttribute('role', 'alert'); lab.appendChild(box); }
-    box.textContent = msg || ''; box.hidden = !msg;
+    el.setAttribute('aria-describedby',box.id); box.textContent = msg || ''; box.hidden = !msg;
     el.classList.toggle('invalid', !!msg); el.setAttribute('aria-invalid', msg ? 'true' : 'false');
   }
   function clearErr(id) { if ($(id)) showErr(id, ''); }
 
-  function setMode(m) {
-    mode = m;
-    ['use', 'bill'].forEach(function (k) { var b = $('mode-' + k); b.setAttribute('aria-selected', k === m ? 'true' : 'false'); b.classList.toggle('on', k === m); });
-    [].forEach.call(document.querySelectorAll('[data-only]'), function (el) { el.hidden = el.getAttribute('data-only') !== m; });
-    render();
-  }
   function syncFee() {
     var f = $('e-fee');
     if (f.getAttribute('data-touched') !== '1') f.value = B.OLD_METER_FEE[parseInt($('e-breaker').value, 10) || 0];
-  }
-  function syncWaterFields() {
-    var s = $('w-sector').value;
-    $('w-units-wrap').hidden = s !== 'res';
-    $('w-meter-wrap').hidden = s === 'gov';
-    $('w-two').classList.toggle('single', s !== 'res');
   }
   function eNote(sec) {
     var T = B.E_NEW[sec], f = T.fixed;
@@ -62,132 +48,130 @@
     return 'الشرائح: 1 ثم 2 ثم 4 ثم 6 ريال للمتر المكعب، والصرف الصحي نصف سعر الماء. ولكل وحدة سكنية إضافية على العداد نفسه 20 ريالًا للماء و10 للصرف. نقسم استهلاك العداد بالتساوي على الوحدات، مثل حاسبة المياه الوطنية الرسمية.';
   }
 
-  function render() {
-    var sec = $('e-sector').value, wsec = $('w-sector').value;
-    var breaker = $('e-breaker').value;
-
-    // ---------- validate electricity inputs
-    var pDays = parseField('e-days', { int: true, min: 1, max: 120 });
-    var pFee = parseField('e-fee', { min: 0, max: 1000 });
-    var pKwh = parseField('e-kwh', { min: 0, max: 1000000 });
-    var pBill = parseField('e-bill', { min: 0.01, max: 10000000, minMsg: 'اكتب مبلغًا أكبر من صفر' });
-    var days = pDays.state === 'ok' ? pDays.v : 30;
-    var fee = pFee.state === 'ok' ? pFee.v : B.OLD_METER_FEE[parseInt(breaker, 10) || 0];
-    var minBill = fee * (1 + B.VAT);
-    if (pBill.state === 'ok' && pBill.v <= minBill) pBill = { state: 'bad', msg: 'المبلغ أقل من رسوم العداد الحالية (' + fmt(minBill) + ' ريال شاملة الضريبة). تأكد أنها فاتورة شهر كامل.' };
-    showErr('e-days', pDays.state === 'bad' ? pDays.msg : '');
-    showErr('e-fee', pFee.state === 'bad' ? pFee.msg : '');
-    if (mode === 'use') { showErr('e-kwh', pKwh.state === 'bad' ? pKwh.msg : ''); clearErr('e-bill'); }
-    else { showErr('e-bill', pBill.state === 'bad' ? pBill.msg : ''); clearErr('e-kwh'); }
-    var main = mode === 'use' ? pKwh : pBill;
-    var eBad = main.state === 'bad' || pDays.state === 'bad' || pFee.state === 'bad';
-    var eNeed = !eBad && main.state === 'empty';
-    var eOk = !eBad && !eNeed;
-    var kwh = 0, amount = 0;
-    if (eOk) {
-      if (mode === 'bill') { amount = pBill.v; kwh = B.kwhFromOldBill({ amount: amount, meterFee: fee, sector: sec }); }
-      else kwh = pKwh.v;
-    }
-
-    // ---------- validate water inputs
-    var pM3 = parseField('w-m3', { min: 0, max: 100000 });
-    var unitsVisible = wsec === 'res';
-    var pUnits = unitsVisible ? parseField('w-units', { int: true, min: 1, max: 200 }) : { state: 'empty' };
-    var pOld = parseField('w-old', { min: 0, max: 1000000 });
-    showErr('w-m3', pM3.state === 'bad' ? pM3.msg : '');
-    if (unitsVisible) showErr('w-units', pUnits.state === 'bad' ? pUnits.msg : ''); else clearErr('w-units');
-    showErr('w-old', pOld.state === 'bad' ? pOld.msg : '');
-    var wBad = pM3.state === 'bad' || pUnits.state === 'bad';
-    var wNeed = !wBad && pM3.state === 'empty';
-    var wOk = !wBad && !wNeed;
-    var units = pUnits.state === 'ok' ? pUnits.v : 1;
-    var wo = { sector: wsec, units: units, m3: wOk ? pM3.v : 0, meter: $('w-meter').value, sewer: $('w-sewer').checked };
-
-    // ---------- electricity output
-    $('e-note').textContent = eNote(sec);
-    $('w-note').textContent = wNote(wsec);
-    var e = null, w = null, eh = '';
-    if (eOk) e = B.electricity({ kwh: kwh, breaker: breaker, days: days, sector: sec });
-    $('e-derived').textContent = mode === 'bill' ? (eOk ? 'استهلاكك التقريبي من الفاتورة: ' + whole(Math.round(kwh)) + ' كيلوواط ساعة' : (eNeed ? 'اكتب مبلغ فاتورتك الحالية لنقدّر استهلاكك.' : '')) : '';
-    if (eBad) eh = hint('صحّح الخانة المظللة بالأحمر لنحسب الفاتورة.');
-    else if (eNeed) eh = hint(mode === 'use' ? 'اكتب استهلاكك الشهري (كيلوواط ساعة) لنحسب فاتورتك.' : 'اكتب مبلغ فاتورة الكهرباء الحالية (شاملة الضريبة) لنحسب فاتورتك الجديدة.');
-    else {
-      if (e.flat) eh += row(whole(e.t1) + ' كيلوواط ساعة × ' + hal(e.rate1) + ' هللة', fmt(e.c1));
-      else {
-        eh += row('أول ' + whole(e.t1) + ' كيلوواط ساعة × ' + hal(e.rate1) + ' هللة', fmt(e.c1));
-        if (e.t2 > 0) eh += row('الزيادة فوق 6,000 (' + whole(e.t2) + ' كيلوواط ساعة) × ' + hal(e.rate2) + ' هللة', fmt(e.c2));
-      }
-      eh += row('الرسم الثابت' + (days !== 30 ? ' (حسب أيام الفاتورة)' : ''), fmt(e.fixed));
-      eh += totals(e);
-    }
-    $('e-out').innerHTML = eh;
-
-    // ---------- water output
-    var names = ['الأولى', 'الثانية', 'الثالثة', 'الرابعة'], wh = '';
-    if (wOk) w = B.water(wo);
-    if (wBad) wh = hint('صحّح الخانة المظللة بالأحمر لنحسب الفاتورة.');
-    else if (wNeed) wh = hint('اكتب استهلاك المياه (م³ بالشهر) لنحسب فاتورتك.');
-    else {
-      wh = row('استهلاك المياه' + (w.units > 1 ? ' (' + w.units + ' وحدات)' : ''), fmt(w.waterCons));
-      if (wo.sewer) wh += row('الصرف الصحي', fmt(w.sewerCons));
-      wh += row('الرسم الشهري الثابت (المياه' + (wo.sewer ? ' والصرف' : '') + ')', fmt(w.waterFixed + w.sewerFixed));
-      wh += totals(w);
-    }
-    $('w-out').innerHTML = wh;
-    var tiers = [];
-    if (w && wsec === 'res') for (var i = 0; i < 4; i++) if (w.bands[i] > 0) tiers.push(names[i] + ' ' + whole(w.bands[i]));
-    $('w-tiers').textContent = tiers.length ? 'توزيع استهلاك الوحدة الواحدة على الشرائح (بالمتر المكعب): ' + tiers.join(' · ') : '';
-
-    // ---------- combined + saving tip (need both)
-    if (e && w) {
-      $('all-out').innerHTML = row('كهرباء + ماء قبل الضريبة', fmt(e.subtotal + w.subtotal)) + row('الإجمالي مع الضريبة 15%', fmt(e.total + w.total), 'bc-total');
-      var e2 = B.electricity({ kwh: kwh * 0.9, breaker: breaker, days: days, sector: sec });
-      var w2 = B.water({ sector: wsec, units: units, m3: wo.m3 * 0.9, meter: wo.meter, sewer: wo.sewer });
-      var save = (e.total + w.total) - (e2.total + w2.total);
-      $('save-tip').innerHTML = save > 0.005 ? 'لو خفضت استهلاك الكهرباء والماء <b>10%</b>، توفر تقريبًا <b>' + fmt(save) + ' ريال</b> بالشهر (مع الضريبة).' : '';
-    } else {
-      $('all-out').innerHTML = hint('أكمل بيانات الكهرباء والماء بشكل صحيح لعرض الإجمالي.', true);
-      $('save-tip').innerHTML = '';
-    }
-
-    // ---------- comparison vs support
-    var oldE = null, tag = '';
-    if (e) { if (mode === 'bill') oldE = amount; else { oldE = B.oldElectricity({ kwh: kwh, meterFee: fee, sector: sec }).total; tag = ' (تقدير)'; } }
-    var oldW = (w && pOld.state === 'ok') ? pOld.v : null;      // "0" is a valid water bill and is included
-    var sType = $('s-type').value, ch = '';
-    if (!e) {
-      ch = hint('أكمل بيانات الكهرباء بشكل صحيح لنقارن الزيادة.');
-    } else {
-      var c = B.compare({ newElec: e.total, newWater: w ? w.total : 0, oldElec: oldE, oldWater: oldW, support: sType });
-      ch += row('الكهرباء الآن' + tag, fmt(oldE)) + row('الكهرباء بعد التعديل', fmt(e.total)) + row('زيادة الكهرباء', signed(c.elecIncrease), 'bc-sub');
-      if (oldW != null) ch += row('الماء الآن', fmt(oldW)) + row('الماء بعد التعديل', fmt(w.total)) + row('زيادة الماء', signed(c.waterIncrease), 'bc-sub');
-      ch += row('إجمالي الزيادة الشهرية' + (c.partial ? ' (الكهرباء فقط)' : ''), signed(c.totalIncrease), 'bc-total');
-      if (c.support > 0) {
-        ch += row('دعم 500 ريال شهريًا', fmt(c.support));
-        ch += c.net >= 0 ? '<p class="bc-verdict ok">الدعم يغطي الزيادة ويبقى لك تقريبًا <b>' + fmt(c.net) + ' ريال</b> بالشهر.</p>'
-                         : '<p class="bc-verdict bad">الزيادة تتجاوز الدعم بحوالي <b>' + fmt(-c.net) + ' ريال</b> بالشهر.</p>';
-      } else {
-        ch += '<p class="bc-verdict">' + (sType === 'private' ? 'هذا القرار لا يتضمن دعمًا مباشرًا للعاملين في القطاع الخاص، لكنه يرفع الحد الأدنى للأجر المحتسب في «نطاقات».' : 'اختر وضعك أعلاه لمقارنة الزيادة بالدعم.') + '</p>';
-      }
-    }
-    $('cmp-out').innerHTML = ch;
-    $('cmp-note').textContent = (e && oldW == null) ? 'أضف فاتورة الماء الحالية (اختياري، في بطاقة الماء) لتشمل المقارنة زيادة الماء أيضًا.' : '';
+  var utility='electricity', mode='bill', calculated=false;
+  var fieldIds=['e-days','e-fee','e-kwh','e-bill','w-m3','w-units','w-old'];
+  function picked(id){var el=$(id);return el.options[el.selectedIndex].text;}
+  function wantsE(){return utility!=='water';}
+  function wantsW(){return utility!=='electricity';}
+  function setMode(m){
+    mode=m;
+    ['bill','use'].forEach(function(k){$('mode-'+k).setAttribute('aria-pressed',String(k===m));});
+    $('e-bill').closest('label').hidden=m!=='bill';
+    $('use-wrap').hidden=m!=='use';
+    $('e-derived').hidden=m!=='bill';
+    clearErr(m==='bill'?'e-kwh':'e-bill');
+    if(calculated)render();
   }
+  function assumptions(){
+    $('e-assumptions').textContent='التقدير على أساس: '+picked('e-sector')+' · قاطع '+picked('e-breaker')+' · '+($('e-days').value||'30')+' يوماً. راجعها من «تعديل بيانات العداد».';
+    var res=$('w-sector').value==='res',gov=$('w-sector').value==='gov';
+    $('w-units-wrap').hidden=!res;$('w-meter-wrap').hidden=gov;
+    $('w-assumptions').textContent='التقدير على أساس: '+picked('w-sector')+(gov?'':(' · عداد '+picked('w-meter')))+(res?' · '+($('w-units').value||'1')+' وحدة سكنية':'')+'. راجع بيانات عدادك أعلاه.';
+    $('water-old-wrap').hidden=!wantsW();
+  }
+  function selectUtility(u){
+    utility=u;
+    document.querySelectorAll('[data-utility]').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.utility===u));});
+    $('e-panel').hidden=!wantsE();$('w-panel').hidden=!wantsW();
+    fieldIds.forEach(clearErr);assumptions();
+    if(calculated)render();
+  }
+  function parse(id,options,required){
+    var p=parseField(id,options);
+    if(required&&p.state==='empty')p={state:'bad',msg:'اكتب القيمة المطلوبة أولاً'};
+    showErr(id,p.state==='bad'?p.msg:'');return p;
+  }
+  function revealFirstError(){
+    var el=document.querySelector('.bc-input-card input[aria-invalid="true"]');
+    if(!el)return;
+    var p=el.parentElement;
+    while(p){if(p.tagName==='DETAILS')p.open=true;p=p.parentElement;}
+    el.focus();
+  }
+  function compare(e,w,kwh,fee,amount){
+    var oldE=e?(mode==='bill'?amount:B.oldElectricity({kwh:kwh,meterFee:fee,sector:$('e-sector').value}).total):null;
+    var oldW=null,pOld;
+    if(w){pOld=parse('w-old',{min:0,max:1000000},false);if(pOld.state==='ok')oldW=pOld.v;}
+    var text='',note='';
+    if(w&&pOld.state==='bad'){
+      $('cmp-out').innerHTML=hint('صحّح مبلغ فاتورة المياه الحالية لعرض المقارنة.');$('cmp-note').textContent='';return;
+    }
+    if(oldE===null&&oldW===null){
+      $('cmp-out').innerHTML=hint(w?'أدخل مبلغ فاتورة المياه الحالية أعلاه لعرض الزيادة.':'احسب الفاتورة أولاً لعرض المقارنة.');$('cmp-note').textContent='';return;
+    }
+    var c=B.compare({newElec:e?e.total:0,newWater:w?w.total:0,oldElec:oldE,oldWater:oldW,support:$('s-type').value});
+    if(e)text+=row('الكهرباء الآن'+(mode==='use'?' (تقدير)':''),fmt(oldE))+row('زيادة الكهرباء',signed(c.elecIncrease));
+    if(oldW!==null)text+=row('المياه الآن',fmt(oldW))+row('زيادة المياه',signed(c.waterIncrease));
+    var partial=wantsE()&&wantsW()&&oldW===null;
+    text+=row(partial?'الزيادة المعروفة (الكهرباء فقط)':'إجمالي الزيادة',signed(c.totalIncrease),'bc-sub');
+    if(partial)note='لم تدخل فاتورة المياه الحالية؛ المقارنة والدعم أدناه للكهرباء فقط، وليسا لإجمالي الخدمتين.';
+    if(c.support){
+      text+=row('الدعم المفترض شهرياً',fmt(c.support));
+      text+='<p class="bc-verdict">'+(c.net>=0?'يغطي الزيادة المحسوبة ويتبقى '+fmt(c.net):'تتجاوز الزيادة المحسوبة الدعم بمقدار '+fmt(-c.net))+' ريال.'+(partial?' المقارنة لا تشمل المياه.':'')+'</p>';
+    }
+    $('cmp-out').innerHTML=text;$('cmp-note').textContent=note;
+  }
+  function render(){
+    assumptions();
+    var e=null,w=null,kwh=0,fee=0,amount=0,days=30,bad=false;
+    fieldIds.forEach(clearErr);
+    if(wantsE()){
+      var pd=parse('e-days',{int:true,min:1,max:120},true),pf=parse('e-fee',{min:0,max:1000},true);
+      days=pd.v;fee=pf.v;
+      var main=mode==='bill'?parse('e-bill',{min:0.01,max:10000000},true):parse('e-kwh',{min:0,max:1000000},true);
+      if(mode==='bill'&&main.state==='ok'&&pf.state==='ok'&&main.v<=fee*(1+B.VAT)){
+        main={state:'bad',msg:'المبلغ لا يتجاوز رسوم العداد ('+fmt(fee*(1+B.VAT))+' ريال شاملة الضريبة). أدخل فاتورة شهر كامل.'};showErr('e-bill',main.msg);
+      }
+      if(pd.state!=='ok'||pf.state!=='ok'||main.state!=='ok')bad=true;
+      else{
+        amount=mode==='bill'?main.v:0;
+        kwh=mode==='bill'?B.kwhFromOldBill({amount:amount,meterFee:fee,sector:$('e-sector').value}):main.v;
+        if(kwh>1000000){bad=true;showErr('e-bill','الاستهلاك المستنتج يتجاوز الحد المدعوم. تحقق من مبلغ الفاتورة.');}
+        else e=B.electricity({kwh:kwh,breaker:$('e-breaker').value,days:days,sector:$('e-sector').value});
+      }
+      $('e-derived').textContent=e&&mode==='bill'?'يعادل تقريباً '+whole(kwh)+' كيلوواط ساعة بالتعريفة الحالية.':'';
+    }
+    if(wantsW()){
+      var pm=parse('w-m3',{min:0,max:100000},true);
+      var pu=$('w-sector').value==='res'?parse('w-units',{min:1,max:200,int:true},true):{state:'ok',v:1};
+      if(pm.state!=='ok'||pu.state!=='ok')bad=true;
+      else w=B.water({m3:pm.v,units:pu.v,meter:$('w-meter').value,sewer:$('w-sewer').checked,sector:$('w-sector').value});
+    }
+    $('bc-breakdown').hidden=bad;$('result-period').hidden=bad;
+    if(bad){
+      $('all-out').innerHTML=hint('راجع الخانة الموضحة بالأحمر، ثم احسب من جديد.');
+      $('cmp-out').innerHTML=hint('أكمل بيانات الفاتورة لعرض المقارنة.');$('cmp-note').textContent='';return false;
+    }
+    var total=(e?e.total:0)+(w?w.total:0);
+    $('all-out').innerHTML='<p class="bc-total-label">'+(utility==='both'?'إجمالي الكهرباء والمياه':utility==='water'?'فاتورة المياه':'فاتورة الكهرباء')+'</p><p class="bc-amount"><b>'+fmt(total)+'</b> <span>ريال</span></p><p class="bc-tax">شامل ضريبة القيمة المضافة 15%</p>'+(utility==='both'?'<div class="bc-split">'+row('الكهرباء',fmt(e.total))+row('المياه',fmt(w.total))+'</div>':'');
+    $('result-period').textContent='تقدير وفق تعريفة 2027'+(e?' · الكهرباء '+whole(days)+' يوماً':'')+(w?' · المياه شهر كامل':'');
+    $('e-breakdown').hidden=!e;$('w-breakdown').hidden=!w;
+    if(e){
+      var eh=row(whole(e.t1)+' كيلوواط ساعة × '+hal(e.rate1)+' هللة',fmt(e.c1));
+      if(e.t2)eh+=row(whole(e.t2)+' كيلوواط ساعة إضافية × '+hal(e.rate2)+' هللة',fmt(e.c2));
+      $('e-out').innerHTML=eh+row('الرسم الثابت',fmt(e.fixed))+totals(e);$('e-note').textContent=eNote($('e-sector').value);
+    }
+    if(w){
+      $('w-out').innerHTML=row('استهلاك المياه',fmt(w.waterCons))+($('w-sewer').checked?row('الصرف الصحي',fmt(w.sewerCons)):'')+row('الرسم الثابت',fmt(w.waterFixed+w.sewerFixed))+totals(w);
+      $('w-note').textContent=wNote($('w-sector').value);$('w-tiers').textContent=w.units>1?'يُقسم الاستهلاك بالتساوي على '+w.units+' وحدات.':'';
+    }
+    compare(e,w,kwh,fee,amount);return true;
+  }
+  function calculate(){calculated=true;if(!render()){revealFirstError();return;}$('result-title').setAttribute('tabindex','-1');$('result-title').focus({preventScroll:true});if(matchMedia('(max-width:800px)').matches)$('result-card').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'start'});}
+  document.querySelectorAll('[data-utility]').forEach(function(b){b.addEventListener('click',function(){selectUtility(b.dataset.utility);});});
+  $('mode-bill').addEventListener('click',function(){setMode('bill');});$('mode-use').addEventListener('click',function(){setMode('use');});
+  document.querySelectorAll('.bc-input-card input,.bc-input-card select,#water-old-wrap input,#s-type').forEach(function(el){
+    el.addEventListener('input',function(){if(el.id==='e-fee')el.setAttribute('data-touched','1');assumptions();if(calculated)render();});
+    el.addEventListener('change',function(){if(el.id==='e-breaker')syncFee();assumptions();if(calculated)render();});
+    el.addEventListener('keydown',function(event){if(event.key==='Enter'&&el.tagName==='INPUT'){event.preventDefault();calculate();}});
+  });
+  $('bc-calculate').addEventListener('click',calculate);
+  $('bc-reset').addEventListener('click',function(){
+    calculated=false;$('e-sector').value='residential';$('e-breaker').value='0';$('e-days').value='30';$('e-fee').removeAttribute('data-touched');syncFee();
+    $('e-kwh').value='';$('e-bill').value='';$('w-m3').value='';$('w-old').value='';$('w-units').value='1';$('w-sector').value='res';$('w-meter').value='0';$('w-sewer').checked=true;$('s-type').value='none';
+    fieldIds.forEach(clearErr);document.querySelectorAll('.calc-content details').forEach(function(d){d.open=false;});setMode('bill');selectUtility('electricity');
+    $('all-out').innerHTML='<p class="bc-empty">أدخل بياناتك واضغط «احسب فاتورتي».</p>';$('result-period').hidden=true;$('bc-breakdown').hidden=true;$('cmp-out').textContent='';$('cmp-note').textContent='';$('e-derived').textContent='';
+  });
+  syncFee();setMode('bill');selectUtility('electricity');
 
-  ['e-sector', 'e-kwh', 'e-bill', 'e-breaker', 'e-days', 'w-sector', 'w-units', 'w-m3', 'w-meter', 'w-sewer', 'w-old', 's-type'].forEach(function (id) {
-    var el = $(id); if (!el) return; el.addEventListener('input', render); el.addEventListener('change', render);
-  });
-  $('e-breaker').addEventListener('change', function () { syncFee(); render(); });
-  $('w-sector').addEventListener('change', function () { syncWaterFields(); render(); });
-  $('e-fee').addEventListener('input', function () { this.setAttribute('data-touched', '1'); render(); });
-  $('mode-use').addEventListener('click', function () { setMode('use'); });
-  $('mode-bill').addEventListener('click', function () { setMode('bill'); });
-  var reset = $('bc-reset');
-  if (reset) reset.addEventListener('click', function () {
-    $('e-sector').value = 'residential'; $('w-sector').value = 'res';
-    $('e-kwh').value = 1500; $('e-bill').value = ''; $('e-breaker').value = 0; $('e-days').value = 30; $('e-fee').removeAttribute('data-touched'); syncFee();
-    $('w-units').value = 1; $('w-m3').value = 25; $('w-meter').value = 0; $('w-sewer').checked = true; $('w-old').value = ''; $('s-type').value = 'none';
-    syncWaterFields(); setMode('use');
-  });
-  syncFee(); syncWaterFields(); setMode('use');
 })();
