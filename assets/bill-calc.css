@@ -14,7 +14,7 @@
 .bc-card h2 i{font-style:normal;font-size:1.5rem}
 .bc-field{display:block;font-size:.9rem;color:#263d5b;font-weight:750;margin-bottom:.9rem}
 .bc-field small{display:block;font-weight:400;color:#5b6b82;font-size:.78rem;margin-top:.2rem}
-.bc-field input[type=number],.bc-field select{display:block;width:100%;height:50px;margin-top:.45rem;border:1px solid #b9c9dc;border-radius:10px;background:#fff;color:#152238;padding:.6rem .8rem;font:inherit;font-weight:400}
+.bc-field input[type=text],.bc-field input[type=number],.bc-field select{display:block;width:100%;height:50px;margin-top:.45rem;border:1px solid #b9c9dc;border-radius:10px;background:#fff;color:#152238;padding:.6rem .8rem;font:inherit;font-weight:400}
 .bc-field input:focus,.bc-field select:focus{outline:2px solid #1e6bb8;outline-offset:2px}
 .bc-two{display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
 .bc-check{display:flex;align-items:center;gap:.6rem;font-size:.92rem;color:#263d5b;font-weight:700;margin:.2rem 0 1rem}.bc-check input{width:20px;height:20px;accent-color:#17518c}
@@ -47,3 +47,15 @@
 [hidden]{display:none!important}
 
 .bc-two.single{grid-template-columns:1fr}
+
+/* v4: mobile overflow fix + validation styles */
+.bc-two{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.bc-two>*{min-width:0}
+.bc-field input,.bc-field select{min-width:0;max-width:100%;box-sizing:border-box}
+.bc-card,.bc-all,.bc-sources,.bc-faq,.bc-compare{min-width:0;box-sizing:border-box}
+.bc-field input.invalid{border-color:#b3261e;background:#fff6f5}.bc-field input.invalid:focus{outline-color:#b3261e}
+.bc-err{display:block;color:#b3261e;font-weight:700;font-size:.82rem;line-height:1.7;margin-top:.35rem}
+@media (max-width:560px){.bc-two{grid-template-columns:minmax(0,1fr)}}
+
+/* the shared site header menu can overflow below ~330px; keep this page from scrolling sideways */
+.calc-page{overflow-x:clip}
+.bc-field small.bc-err{color:#b3261e;font-weight:700;font-size:.82rem;line-height:1.7;margin-top:.35rem}
