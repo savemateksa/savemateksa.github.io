@@ -45,3 +45,5 @@
 .bc-compare{margin-bottom:1.4rem}
 .bc-verdict{margin:.9rem 0 0;padding:.8rem 1rem;border-radius:12px;background:#f1f6fb;color:#263d5b;line-height:1.9;font-size:.95rem}.bc-verdict.ok{background:#e8f6ee;color:#14532d}.bc-verdict.bad{background:#fff1e6;color:#7a3300}
 [hidden]{display:none!important}
+
+.bc-two.single{grid-template-columns:1fr}
