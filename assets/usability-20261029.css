@@ -1,0 +1,33 @@
+/* Scoped usability fixes: homepage, articles and jobs. */
+.pagination-wrap[hidden],.articles-empty[hidden]{display:none!important}
+.home-quick .hero{padding:24px 0 18px}
+.home-quick .hero-inner{display:block}
+.home-quick .home-hero-copy{max-width:760px;margin:auto;text-align:center}
+.home-quick .hero-title{font-size:clamp(27px,4vw,40px);line-height:1.35;margin:0 0 10px}
+.home-quick .hero-text{font-size:16px;line-height:1.7;margin:0 auto 12px;max-width:560px}
+.home-quick .quick-links{display:flex;justify-content:center;flex-wrap:wrap;gap:10px 24px;font-size:14px;font-weight:700}
+.home-quick #products{padding-top:18px;scroll-margin-top:85px}
+.home-quick #products .section-head{gap:16px;margin-bottom:12px}
+.home-quick #products .sec-title{font-size:24px}
+.home-quick #products .sec-tag{display:none}
+.home-quick #products .search{width:100%;max-width:520px}
+.home-quick #products .search input{width:100%;min-width:0}
+.home-quick #products .home-filter{margin-bottom:16px}
+.home-quick .savemate-pagination{display:flex!important;flex-wrap:wrap!important;width:100%;max-width:calc(100vw - 32px);min-width:0;justify-content:center;margin-inline:auto}
+.home-quick .pagination-wrap{min-width:0}
+@media(max-width:700px){
+ .home-quick .hero{padding:20px 0 16px}
+ .home-quick #products .section-head{display:flex;flex-direction:column}
+ .home-quick #products .section-head .search{order:-1}
+ .home-quick #products .section-head>div{display:none}
+ .home-quick #products .search input{font-size:16px}
+}
+@media(max-width:380px){
+ .jobs-page .header-inner{gap:8px;width:calc(100% - 24px);padding-inline:0}
+ .jobs-page .brand{gap:6px;min-width:0}
+ .jobs-page .brand-name small{display:none}
+ .jobs-page .telegram.compact{padding:8px 10px;font-size:12px}
+ .jobs-page .home-mobile-nav{flex-shrink:0}
+}
+@media(max-width:340px){.jobs-page .brand-name strong{font-size:14px}}
+@media(max-width:300px){.jobs-page .brand-name{display:none}}
