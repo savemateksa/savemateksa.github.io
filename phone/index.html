@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>جوال صديق التوفير</title>
+<meta name="description" content="لقيت جوال؟ لا تفتح ملف العروض">
+<meta property="og:title" content="جوال صديق التوفير">
+<meta property="og:description" content="لقيت جوال؟ لا تفتح ملف العروض 🤫">
+<meta property="og:image" content="https://savemateksa.com/phone/logo.png">
+<meta property="og:url" content="https://savemateksa.com/phone/">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#00121C">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#00121C; --bg2:#0B3D3A; --bg3:#003441;
+  --pri:#1CBB93; --acc:#3DDC97; --acc2:#1CDBCB;
+  --ink:#EDF7F8; --mut:#8FB3B0; --red:#FF6B6B;
+  --card:rgba(237,247,248,.08); --line:rgba(237,247,248,.12);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{background:#000;color:var(--ink);font-family:Alexandria,system-ui,sans-serif;font-weight:500;
+  display:flex;align-items:center;justify-content:center;overflow:hidden}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+a{color:inherit}
+
+/* phone frame: full screen on phones, framed on desktop */
+.phone{position:relative;width:100vw;height:100dvh;overflow:hidden;
+  background:radial-gradient(120% 80% at 70% 0%,var(--bg2) 0%,var(--bg) 55%,#000 100%)}
+@media (min-width:600px){
+  .phone{width:390px;height:min(844px,94vh);border-radius:54px;border:12px solid #111;
+    box-shadow:0 0 0 2px #2a2a2a,0 40px 80px rgba(0,0,0,.6)}
+  body{background:radial-gradient(circle at 50% 30%,#0B3D3A 0%,#000 70%)}
+}
+.status{position:absolute;top:0;left:0;right:0;height:44px;display:flex;align-items:center;
+  justify-content:space-between;padding:0 26px;font-size:14px;font-weight:700;z-index:50;direction:ltr}
+.status .bat{display:flex;gap:6px;align-items:center}
+.batbox{width:26px;height:12px;border:1.5px solid var(--ink);border-radius:4px;padding:1px;position:relative}
+.batbox i{display:block;height:100%;width:9%;background:var(--red);border-radius:2px}
+.screen{position:absolute;inset:0;transition:transform .45s cubic-bezier(.2,.8,.2,1),opacity .35s}
+.hidden{opacity:0;pointer-events:none}
+
+/* ---------- lock ---------- */
+#lock{display:flex;flex-direction:column;align-items:center;padding:64px 14px 24px;z-index:20;
+  background:radial-gradient(120% 70% at 50% 0%,#0B3D3A 0%,#00121C 60%,#000 100%)}
+#lock.up{transform:translateY(-100%);opacity:0}
+.lk-date{font-size:16px;color:var(--mut);margin-top:6px}
+.lk-time{font-size:84px;font-weight:800;line-height:1;letter-spacing:-2px;direction:ltr}
+.lost{margin:14px 0 6px;text-align:center}
+.lost b{display:block;font-size:20px;font-weight:900;color:var(--acc)}
+.lost span{font-size:13px;color:var(--mut)}
+.notifs{width:100%;display:flex;flex-direction:column;gap:8px;margin-top:14px;overflow:hidden}
+.nt{background:rgba(237,247,248,.1);backdrop-filter:blur(14px);border-radius:20px;padding:11px 13px;
+  display:flex;gap:10px;align-items:flex-start;animation:pop .5s both}
+.nt .ic{width:36px;height:36px;border-radius:9px;flex:none;display:grid;place-items:center;font-size:20px}
+.nt .tx{flex:1;min-width:0}
+.nt .hd{display:flex;justify-content:space-between;font-size:12px;color:var(--mut)}
+.nt .hd b{color:var(--ink);font-weight:700}
+.nt p{font-size:13.5px;line-height:1.5;margin-top:2px}
+@keyframes pop{from{opacity:0;transform:translateY(-12px) scale(.97)}}
+.swipe{margin-top:auto;font-size:14px;color:var(--mut);display:flex;flex-direction:column;align-items:center;gap:8px;padding-top:12px}
+.swipe .bar{width:134px;height:5px;border-radius:9px;background:var(--ink)}
+.swipe span{animation:bob 1.6s infinite}
+@keyframes bob{50%{transform:translateY(-5px);opacity:.6}}
+
+/* ---------- home ---------- */
+#home{padding:70px 22px 30px;display:flex;flex-direction:column}
+.widget{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:14px 16px;margin-bottom:22px}
+.widget small{color:var(--acc);font-weight:700;font-size:12px}
+.widget p{font-size:14px;margin-top:4px;line-height:1.55}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px 10px}
+.app{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:11.5px;position:relative}
+.app .ic{width:60px;height:60px;border-radius:15px;display:grid;place-items:center;font-size:30px;
+  box-shadow:0 6px 16px rgba(0,0,0,.35)}
+.app:active .ic{transform:scale(.92)}
+.badge{position:absolute;top:-6px;left:4px;background:var(--red);color:#fff;font-size:12px;font-weight:800;
+  min-width:22px;height:22px;border-radius:11px;display:grid;place-items:center;padding:0 6px}
+.dock{margin-top:auto;background:rgba(237,247,248,.1);border-radius:30px;padding:14px;display:flex;justify-content:space-around}
+.g1{background:linear-gradient(160deg,#3DDC97,#13906f)}
+.g2{background:linear-gradient(160deg,#ffd76a,#f0a92b)}
+.g3{background:linear-gradient(160deg,#ffffff,#d9e6e5)}
+.g4{background:linear-gradient(160deg,#5ab8ff,#1d6fd8)}
+.g5{background:linear-gradient(160deg,#ff8a8a,#e04848)}
+.g6{background:linear-gradient(160deg,#9aa6ad,#56646b)}
+.g7{background:linear-gradient(160deg,#1CDBCB,#0a7f86)}
+.g8{background:linear-gradient(160deg,#2b2f33,#111)}
+
+/* ---------- app window ---------- */
+.win{background:var(--bg);display:flex;flex-direction:column;transform:translateX(-100%);z-index:30}
+.win.open{transform:none}
+.wh{padding:52px 16px 10px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--line);background:rgba(0,18,28,.92)}
+.wh .back{color:var(--acc);font-size:15px;font-weight:700;padding:6px 4px}
+.wh h2{flex:1;text-align:center;font-size:17px;font-weight:800;margin-left:52px}
+.wb{flex:1;overflow-y:auto;padding:12px 14px 30px;-webkit-overflow-scrolling:touch}
+.row{display:flex;gap:12px;align-items:center;padding:12px 4px;border-bottom:1px solid var(--line);width:100%;text-align:right}
+.av{width:46px;height:46px;border-radius:50%;flex:none;display:grid;place-items:center;font-size:22px;background:var(--bg3)}
+.row .tx{flex:1;min-width:0}
+.row .t1{display:flex;justify-content:space-between;font-weight:700;font-size:15px}
+.row .t1 small{color:var(--mut);font-weight:500;font-size:12px}
+.row .t2{color:var(--mut);font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:3px}
+.unread{background:var(--pri);color:#00121C;font-size:11px;font-weight:800;min-width:20px;height:20px;border-radius:10px;display:grid;place-items:center;padding:0 5px}
+
+/* chat */
+.chat{display:flex;flex-direction:column;gap:6px;padding-top:6px}
+.daytag{align-self:center;font-size:11px;color:var(--mut);background:var(--card);padding:4px 10px;border-radius:9px;margin:6px 0}
+.msg{max-width:82%;padding:8px 11px 6px;border-radius:14px;font-size:14px;line-height:1.6;background:#12313a;align-self:flex-end;border-top-left-radius:4px}
+.msg.me{align-self:flex-start;background:#0f6b55;border-top-left-radius:14px;border-top-right-radius:4px}
+.msg .who{font-size:12px;font-weight:800;display:block;margin-bottom:1px}
+.msg time{display:block;font-size:10.5px;color:rgba(237,247,248,.55);text-align:left;margin-top:2px}
+
+/* notes */
+.note h3{font-size:22px;font-weight:900;margin:6px 0 4px}
+.note .meta{color:var(--mut);font-size:12px;margin-bottom:12px}
+.note p,.note li{font-size:15px;line-height:1.9}
+.note ul{list-style:none}
+.note li::before{content:"☐ ";color:var(--acc)}
+.note li.d::before{content:"☑ "}
+.note li.d{color:var(--mut);text-decoration:line-through}
+
+/* photos */
+.pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px}
+.ph{aspect-ratio:1;background:#fff center/contain no-repeat;border-radius:4px;overflow:hidden;position:relative}
+.ph.txt{background:linear-gradient(160deg,#ffe27a,#f6c445);color:#3a2d00;display:grid;place-items:center;
+  font-weight:800;font-size:13px;text-align:center;padding:8px;line-height:1.5;transform:rotate(-2deg)}
+.viewer{position:absolute;inset:0;background:rgba(0,0,0,.94);z-index:60;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px}
+.viewer img{max-width:88%;max-height:60%;background:#fff;border-radius:12px;padding:10px}
+.viewer p{margin-top:16px;text-align:center;font-size:15px;line-height:1.7}
+
+/* files */
+.folder{display:flex;align-items:center;gap:12px;padding:14px;border-radius:16px;background:var(--card);border:1px solid var(--line);margin-bottom:10px;width:100%;text-align:right}
+.folder .fi{font-size:34px}
+.folder b{display:block;font-size:15px}
+.folder small{color:var(--mut);font-size:12px}
+.folder.secret{border-color:rgba(255,107,107,.5);background:rgba(255,107,107,.08)}
+
+/* keypad */
+.kp{position:absolute;inset:0;z-index:70;background:rgba(0,18,28,.97);display:flex;flex-direction:column;align-items:center;padding:70px 24px 30px}
+.kp h3{font-size:18px;font-weight:800;margin-top:8px;text-align:center}
+.kp .sub{color:var(--mut);font-size:13px;margin-top:6px;text-align:center;min-height:40px;line-height:1.6}
+.dots{display:flex;gap:16px;margin:20px 0 26px;direction:ltr}
+.dots i{width:14px;height:14px;border-radius:50%;border:1.5px solid var(--ink)}
+.dots i.on{background:var(--ink)}
+.dots.shake{animation:shake .4s}
+@keyframes shake{20%,60%{transform:translateX(-10px)}40%,80%{transform:translateX(10px)}}
+.keys{display:grid;grid-template-columns:repeat(3,74px);gap:16px 24px;direction:ltr}
+.keys button{width:74px;height:74px;border-radius:50%;background:rgba(237,247,248,.12);font-size:28px;font-weight:700}
+.keys button:active{background:rgba(237,247,248,.3)}
+.keys .empty{visibility:hidden}
+.kp .cancel{margin-top:auto;color:var(--acc);font-weight:700;padding:10px}
+
+/* deals */
+.reveal{text-align:center;padding:8px 4px 14px}
+.reveal .tag{display:inline-block;background:var(--red);color:#fff;font-weight:800;font-size:12px;padding:4px 10px;border-radius:8px}
+.reveal h3{font-size:24px;font-weight:900;margin:10px 0 4px;line-height:1.4}
+.reveal p{color:var(--mut);font-size:13px;line-height:1.7}
+.timer{margin:10px auto 0;display:inline-flex;gap:6px;direction:ltr;font-weight:800;font-size:15px;background:var(--card);border:1px solid var(--line);padding:8px 12px;border-radius:12px}
+.timer span{color:var(--acc)}
+.deal{display:flex;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:10px;margin-bottom:10px;align-items:center;animation:pop .5s both}
+.deal .img{width:86px;height:86px;flex:none;border-radius:12px;background:#fff center/contain no-repeat}
+.deal .tx{flex:1;min-width:0}
+.deal b{display:block;font-size:14px;line-height:1.5}
+.deal .why{font-size:12px;color:var(--mut);margin-top:2px;line-height:1.5}
+.deal .pr{display:flex;align-items:center;gap:8px;margin-top:6px;flex-wrap:wrap}
+.deal .price{font-size:18px;font-weight:800;color:var(--acc)}
+.deal .off{background:var(--red);color:#fff;font-size:12px;font-weight:800;padding:2px 7px;border-radius:7px}
+.deal a.go{display:inline-block;margin-top:8px;background:var(--pri);color:#00121C;font-weight:800;font-size:13px;padding:7px 14px;border-radius:10px;text-decoration:none}
+.cta{display:block;text-align:center;background:linear-gradient(160deg,#1CDBCB,#1CBB93);color:#00121C;font-weight:900;font-size:16px;
+  padding:14px;border-radius:16px;text-decoration:none;margin:14px 0 8px}
+.share{display:block;width:100%;text-align:center;border:1.5px solid var(--acc);color:var(--acc);font-weight:800;font-size:15px;padding:12px;border-radius:16px}
+.fine{color:var(--mut);font-size:11px;line-height:1.7;text-align:center;margin-top:14px}
+
+/* settings / calendar */
+.set{background:var(--card);border-radius:16px;overflow:hidden;margin-bottom:16px}
+.set div{padding:13px 14px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;font-size:14px;gap:10px}
+.set div:last-child{border:0}
+.set div span{color:var(--mut);text-align:left}
+.meter{height:8px;border-radius:5px;background:var(--line);overflow:hidden;margin:8px 14px 14px}
+.meter i{display:block;height:100%;width:99.5%;background:linear-gradient(90deg,var(--acc),var(--red))}
+.ev{display:flex;gap:12px;padding:12px;border-radius:14px;background:var(--card);margin-bottom:8px}
+.ev .d{width:52px;text-align:center;flex:none}
+.ev .d b{display:block;font-size:24px;font-weight:900}
+.ev .d small{color:var(--red);font-size:11px;font-weight:700}
+.ev p{font-size:14px;line-height:1.6}
+.ev p small{color:var(--mut);display:block}
+
+.toast{position:absolute;left:50%;bottom:40px;transform:translateX(-50%) translateY(20px);background:rgba(237,247,248,.95);color:#00121C;
+  font-weight:700;font-size:14px;padding:10px 16px;border-radius:14px;opacity:0;transition:.3s;z-index:90;width:max-content;max-width:86%;text-align:center}
+.toast.show{opacity:1;transform:translateX(-50%)}
+</style>
+</head>
+<body>
+<div class="phone" id="phone">
+  <div class="status"><span id="sbTime">9:41</span><span class="bat">9% <span class="batbox"><i></i></span></span></div>
+
+  <!-- LOCK -->
+  <section class="screen" id="lock">
+    <div class="lk-date" id="lkDate"></div>
+    <div class="lk-time" id="lkTime">9:41</div>
+    <div class="lost"><b>هذا الجوال ضايع 📵</b><span>إذا لقيته رجّعه لصاحبه: صديق التوفير</span></div>
+    <div class="notifs" id="notifs"></div>
+    <div class="swipe"><span>اسحب لفوق للفتح ⌃</span><div class="bar"></div></div>
+  </section>
+
+  <!-- HOME -->
+  <section class="screen" id="home">
+    <div class="widget"><small>📅 تذكير</small><p>عروض «الجمعة البيضاء المبكرة» تخلص قريب… <b>لا أحد يفتح الملف قبلي</b> 🤫</p></div>
+    <div class="grid">
+      <button class="app" data-app="chats"><span class="ic g1">💬</span>المحادثات<span class="badge">12</span></button>
+      <button class="app" data-app="notes"><span class="ic g2">📝</span>الملاحظات</button>
+      <button class="app" data-app="photos"><span class="ic g3">🌄</span>الصور</button>
+      <button class="app" data-app="files"><span class="ic g4">📁</span>الملفات<span class="badge">1</span></button>
+      <button class="app" data-app="cal"><span class="ic g3" style="flex-direction:column;font-size:11px;color:#e04848;font-weight:800;line-height:1.1">نوفمبر<b style="font-size:24px;color:#111">18</b></span>التقويم</button>
+      <button class="app" data-app="alerts"><span class="ic g5">🔔</span>تنبيه الأسعار<span class="badge">6</span></button>
+      <button class="app" data-app="settings"><span class="ic g6">⚙️</span>الإعدادات</button>
+      <button class="app" data-app="camera"><span class="ic g8">📷</span>الكاميرا</button>
+    </div>
+    <div class="dock">
+      <button class="app" data-app="chats"><span class="ic g1">💬</span></button>
+      <a class="app" href="https://whatsapp.com/channel/0029VbD0hKlCsU9HiPFUoV1W" target="_blank" rel="noopener"><span class="ic g1">📲</span></a>
+      <a class="app" href="https://t.me/savemateksa" target="_blank" rel="noopener"><span class="ic g7">✈️</span></a>
+      <button class="app" data-app="photos"><span class="ic g3">🌄</span></button>
+    </div>
+  </section>
+
+  <!-- APP WINDOW -->
+  <section class="screen win" id="win">
+    <div class="wh"><button class="back" id="back">‹ رجوع</button><h2 id="wt"></h2></div>
+    <div class="wb" id="wb"></div>
+  </section>
+
+  <div class="toast" id="toast"></div>
+</div>
+
+<script>
+/* ====== DATA (prices from amazon.sa, checked 17 Nov 2026) ====== */
+const TAG='ksa028-21';
+const DEALS_END='2026-11-18T20:59:59Z'; // 11:59 م بتوقيت السعودية
+const DEALS=[
+ {asin:'B085BF3YXG',name:'مقلاة نينجا هوائية 5.2 لتر (AF160ME)',why:'تكفي العايلة، وفيها خاصية ماكس كريسب',price:289,off:52,img:'https://m.media-amazon.com/images/I/41OpCOOQZ3L._SL500_.jpg'},
+ {asin:'B0DJR8ST6K',name:'مقلاة فيليبس هوائية 4.2 لتر (NA229)',why:'شاشة لمس و13 وظيفة، تبيعها أمازون',price:228.99,off:42,img:'https://m.media-amazon.com/images/I/315A-yIuUFL._SL500_.jpg'},
+ {asin:'B0DT25NZ6J',name:'سماعة باور بيتس برو 2',why:'عزل ضوضاء ونبض قلب، للرياضة',price:699,off:36,img:'https://m.media-amazon.com/images/I/21Znv28X+2L._SL500_.jpg'},
+ {asin:'B0DGJ7M995',name:'ايربودز 4 بعزل الضوضاء',why:'شحن لاسلكي وشريحة H2',price:574,off:31,img:'https://m.media-amazon.com/images/I/31bzJADEOkL._SL500_.jpg'},
+ {asin:'B0FQFYMLS5',name:'ايربودز برو 3',why:'أقوى عزل في سماعات أبل',price:809,off:23,img:'https://m.media-amazon.com/images/I/31ELVydvPNL._SL500_.jpg'},
+ {asin:'B0G64YRLDQ',name:'شاحن يوجرين 45 واط صغير قابل للطي',why:'يشحن الجوال والآيباد والماك بوك اير',price:58.97,off:40,img:'https://m.media-amazon.com/images/I/315pjWvlhFL._SL500_.jpg'}
+];
+const CODE='1118';
+const WA='https://whatsapp.com/channel/0029VbD0hKlCsU9HiPFUoV1W';
+const link=a=>`https://www.amazon.sa/dp/${a}?tag=${TAG}`;
+const sar=n=>(Number.isInteger(n)?n:n.toFixed(2))+' ر.س';
+
+/* ====== helpers ====== */
+const $=s=>document.querySelector(s);
+const lock=$('#lock'),win=$('#win'),wb=$('#wb'),wt=$('#wt');
+let toastT;
+function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>e.classList.remove('show'),2600)}
+const days=['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
+const months=['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
+function clock(){const d=new Date();let h=d.getHours()%12||12,m=String(d.getMinutes()).padStart(2,'0');
+  $('#lkTime').textContent=h+':'+m;$('#sbTime').textContent=h+':'+m;
+  $('#lkDate').textContent=days[d.getDay()]+' '+d.getDate()+' '+months[d.getMonth()]}
+clock();setInterval(clock,10000);
+
+/* ====== lock notifications ====== */
+const NOTIFS=[
+ ['g1','💬','صيادين العروض 🎯','الحين','سلطان: اللي يلقى جواله… لا يفتح ملف العروض 😳'],
+ ['g5','🔔','تنبيه الأسعار','قبل 5 د','⬇️ مقلاة نينجا نزلت 289 ر.س (−52٪)'],
+ ['g1','💬','أمي ❤️','قبل 20 د','وينك؟ اتصلت عليك 3 مرات'],
+ ['g4','📁','الملفات','قبل ساعة','🔒 «أقوى عروض الجمعة» مقفل برمز من 4 أرقام'],
+ ['g6','🔋','البطارية','قبل ساعتين','باقي 9٪ من البطارية']
+];
+$('#notifs').innerHTML=NOTIFS.map((n,i)=>`<div class="nt" style="animation-delay:${.15+i*.12}s"><span class="ic ${n[0]}">${n[1]}</span><div class="tx"><div class="hd"><b>${n[2]}</b><span>${n[3]}</span></div><p>${n[4]}</p></div></div>`).join('');
+
+/* unlock: swipe up or tap */
+let y0=null;
+lock.addEventListener('touchstart',e=>y0=e.touches[0].clientY,{passive:true});
+lock.addEventListener('touchend',e=>{if(y0!==null&&y0-e.changedTouches[0].clientY>40)unlock();y0=null});
+lock.addEventListener('click',unlock);
+function unlock(){lock.classList.add('up')}
+
+/* ====== apps ====== */
+let found=false, tries=0;
+const CHATS={
+ group:{name:'صيادين العروض 🎯',av:'🎯',last:'نوره: الرمز مو صعب 😂',time:'9:12 ص',un:7,msgs:[
+  ['day','اليوم'],
+  ['سلطان','#3DDC97','أحد شاف صديق التوفير؟ جواله ضايع من أمس','8:40 ص'],
+  ['نوره','#ff9f9f','لا يكون فيه الملف 😳','8:41 ص'],
+  ['سلطان','#3DDC97','إيه فيه قائمة أقوى عروض الجمعة كلها','8:41 ص'],
+  ['أبو فهد','#ffd76a','اللي يلقاه لا يفتح الملفات… جد','8:55 ص'],
+  ['أبو فهد','#ffd76a','عادي أنا أنتظره ينزلها بقناة الواتساب حقته 😌','8:57 ص'],
+  ['نوره','#ff9f9f','الرمز مو صعب 😂 هو كاتبه بالملاحظات عشان لا ينساه','9:12 ص']]},
+ mom:{name:'أمي ❤️',av:'👩',last:'وينك؟ اتصلت عليك 3 مرات',time:'9:01 ص',un:3,msgs:[
+  ['day','اليوم'],
+  ['me','','يمه لقيت لك المقلاة اللي تبينها بنص سعرها 😍','أمس'],
+  ['أمي','#ff9f9f','صدق؟ اطلبها لي قبل يخلص العرض','أمس'],
+  ['أمي','#ff9f9f','وينك؟ اتصلت عليك 3 مرات','9:01 ص']]},
+ boss:{name:'سلطان',av:'🧔',last:'عطني الرمز طيب 😭',time:'أمس',un:2,msgs:[
+  ['day','أمس'],
+  ['سلطان','#3DDC97','عطني رمز الملف أبي أشوف القائمة قبل الناس','10:15 م'],
+  ['me','','لا والله 😂 الرمز هو آخر يوم للعروض، دوره بنفسك','10:16 م'],
+  ['سلطان','#3DDC97','عطني الرمز طيب 😭','10:20 م']]}
+};
+const APPS={
+ chats(){wt.textContent='المحادثات';
+  wb.innerHTML=Object.entries(CHATS).map(([k,c])=>`<button class="row" data-chat="${k}"><span class="av">${c.av}</span><span class="tx"><span class="t1">${c.name}<small>${c.time}</small></span><span class="t2">${c.last}</span></span>${c.un?`<span class="unread">${c.un}</span>`:''}</button>`).join('');
+  wb.querySelectorAll('[data-chat]').forEach(b=>b.onclick=()=>openChat(b.dataset.chat))},
+ notes(){wt.textContent='الملاحظات';
+  wb.innerHTML=`<button class="row" data-n="1"><span class="tx"><span class="t1">قائمة الجمعة البيضاء ✅<small>أمس</small></span><span class="t2">سماعة، مقلاة لأمي، شاحن…</span></span></button>
+  <button class="row" data-n="2"><span class="tx"><span class="t1">لا تنسى 🤦‍♂️<small>أمس</small></span><span class="t2">رمز الملف السري…</span></span></button>`;
+  wb.querySelector('[data-n="1"]').onclick=()=>note(1);wb.querySelector('[data-n="2"]').onclick=()=>note(2)},
+ photos(){wt.textContent='الصور';
+  const tiles=DEALS.map(d=>`<div class="ph" style="background-image:url('${d.img}')" data-img="${d.img}" data-cap="${d.name}"></div>`);
+  tiles.splice(2,0,`<div class="ph txt" data-cap="الرمز مو بالصور 😏 شيك الملاحظات">الرمز مو هنا 😏</div>`);
+  tiles.push(`<div class="ph txt" style="background:linear-gradient(160deg,#9af0c8,#3DDC97)" data-cap="قاعدتي: قارن السعر قبل الجمعة بأسبوع، لا تنخدع بالنسبة">قارن قبل ما تشتري 🧠</div>`);
+  wb.innerHTML=`<div class="pgrid">${tiles.join('')}</div>`;
+  wb.querySelectorAll('.ph').forEach(p=>p.onclick=()=>viewer(p.dataset.img,p.dataset.cap))},
+ files(){wt.textContent='الملفات';
+  wb.innerHTML=`<button class="folder"><span class="fi">🧾</span><span><b>فواتير</b><small>48 ملف</small></span></button>
+  <button class="folder"><span class="fi">🎬</span><span><b>مقاطع المراجعات</b><small>23 ملف</small></span></button>
+  <button class="folder secret" id="sec"><span class="fi">${found?'🔓':'🔒'}</span><span><b>سري للغاية: أقوى عروض الجمعة</b><small>${found?'مفتوح':'مقفل برمز من 4 أرقام'}</small></span></button>`;
+  wb.querySelectorAll('.folder')[0].onclick=()=>toast('فواتير قديمة… ما فيها شي مهم 🙂');
+  wb.querySelectorAll('.folder')[1].onclick=()=>toast('المقاطع تنزل على حساب @SaveMateKsa 🎬');
+  $('#sec').onclick=()=>found?deals():keypad()},
+ cal(){wt.textContent='التقويم';
+  wb.innerHTML=`<div class="ev"><div class="d"><small>الثلاثاء</small><b>17</b></div><p>أخلص قائمة العروض<small>طول اليوم</small></p></div>
+  <div class="ev" style="border:1px solid rgba(255,107,107,.5)"><div class="d"><small>الأربعاء</small><b>18</b></div><p>⏰ آخر يوم لعروض الجمعة البيضاء المبكرة<small>تخلص 11:59 م · شهر 11 يوم 18</small></p></div>
+  <div class="ev"><div class="d"><small>الخميس</small><b>19</b></div><p>أطلب مقلاة أمي إذا ما طلبتها 😅</p></div>`},
+ alerts(){wt.textContent='تنبيه الأسعار';
+  wb.innerHTML=DEALS.map(d=>`<div class="row"><span class="av" style="background:#fff url('${d.img}') center/70% no-repeat"></span><span class="tx"><span class="t1" style="font-size:14px">${d.name}</span><span class="t2" style="white-space:normal">⬇️ نزل لـ ${sar(d.price)} · خصم ${d.off}٪</span></span></div>`).join('')+
+  `<p class="fine">التفاصيل والروابط كلها داخل الملف السري 🔒</p>`},
+ settings(){wt.textContent='الإعدادات';
+  wb.innerHTML=`<div class="set"><div>اسم الجهاز<span>جوال صديق التوفير</span></div><div>المالك<span>@SaveMateKsa</span></div></div>
+  <div class="set"><div>السعة<span>255.6 من 256 غ.ب</span></div><div class="meter" style="display:block;padding:0;border:0"><i></i></div><div>صور منتجات<span>212 غ.ب</span></div><div>لقطات أسعار<span>41 غ.ب</span></div></div>
+  <div class="set"><div>رمز الملفات<span>شهر + يوم (4 أرقام)</span></div></div>`},
+ camera(){toast('الكاميرا مقفلة 📵 صاحب الجوال ما يبي أحد يصور');return false}
+};
+function openApp(k){if(APPS[k]()===false)return;win.classList.add('open');wb.scrollTop=0;history.pushState({a:1},'')}
+function closeWin(){win.classList.remove('open')}
+$('#back').onclick=()=>{closeWin()};
+window.addEventListener('popstate',closeWin);
+document.querySelectorAll('[data-app]').forEach(b=>b.onclick=()=>openApp(b.dataset.app));
+
+function openChat(k){const c=CHATS[k];wt.textContent=c.name;c.un=0;
+  wb.innerHTML=`<div class="chat">${c.msgs.map(m=>m[0]==='day'?`<span class="daytag">${m[1]}</span>`:
+   m[0]==='me'?`<div class="msg me">${m[2]}<time>${m[3]}</time></div>`:
+   `<div class="msg">${k==='group'?`<span class="who" style="color:${m[1]}">${m[0]}</span>`:''}${m[2]}<time>${m[3]}</time></div>`).join('')}</div>`;
+  wb.scrollTop=wb.scrollHeight}
+function note(n){wt.textContent='الملاحظات';
+  wb.innerHTML=n===1?`<div class="note"><h3>قائمة الجمعة البيضاء ✅</h3><div class="meta">أمس 11:48 م</div><ul>
+   <li class="d">أقارن الأسعار قبل أسبوع</li><li>مقلاة لأمي (نينجا ولا فيليبس؟)</li><li>سماعة جديدة بدل اللي ضاعت</li><li>شاحن صغير للسفر</li><li>أنزّل القائمة للمتابعين قبل يخلص العرض</li></ul></div>`:
+  `<div class="note"><h3>لا تنسى 🤦‍♂️</h3><div class="meta">أمس 11:52 م</div><p>رمز الملف السري = <b>آخر يوم للعروض</b><br>(رقم الشهر + رقم اليوم)</p><p style="color:var(--mut);font-size:13px;margin-top:10px">لو نسيت شيك التقويم 📅</p></div>`}
+function viewer(img,cap){const v=document.createElement('div');v.className='viewer';
+  v.innerHTML=(img?`<img src="${img}" alt="">`:'')+`<p>${cap}</p><p style="color:var(--mut);font-size:12px">اضغط للإغلاق</p>`;
+  v.onclick=()=>v.remove();$('#phone').appendChild(v)}
+
+/* ====== keypad ====== */
+function keypad(){let v='';const k=document.createElement('div');k.className='kp';
+  k.innerHTML=`<div style="font-size:40px">🔒</div><h3>سري للغاية: أقوى عروض الجمعة</h3><div class="sub" id="ksub">أدخل الرمز</div>
+  <div class="dots" id="dots"><i></i><i></i><i></i><i></i></div>
+  <div class="keys">${[1,2,3,4,5,6,7,8,9].map(n=>`<button>${n}</button>`).join('')}<button class="empty"></button><button>0</button><button id="del" style="font-size:20px">⌫</button></div>
+  <button class="cancel">إلغاء</button>`;
+  $('#phone').appendChild(k);
+  const dots=k.querySelectorAll('.dots i'),sub=k.querySelector('#ksub');
+  const draw=()=>dots.forEach((d,i)=>d.classList.toggle('on',i<v.length));
+  k.querySelector('.cancel').onclick=()=>k.remove();
+  k.querySelectorAll('.keys button').forEach(b=>b.onclick=()=>{
+    if(b.id==='del'){v=v.slice(0,-1);draw();return}
+    if(v.length>=4)return; v+=b.textContent; draw();
+    if(v.length===4)setTimeout(()=>{
+      if(v===CODE){found=true;k.remove();deals();}
+      else{tries++;const d=k.querySelector('.dots');d.classList.remove('shake');void d.offsetWidth;d.classList.add('shake');
+        sub.innerHTML=tries>=3?'تلميح: شيك الملاحظات والتقويم 📅':tries>=2?'غلط… نوره قالت إنه مكتوب بالملاحظات 👀':'رمز غلط ❌';v='';draw()}
+    },180)})}
+
+/* ====== deals reveal ====== */
+let tick;
+function deals(){win.classList.add('open');wt.textContent='🔓 أقوى عروض الجمعة';
+  wb.innerHTML=`<div class="reveal"><span class="tag">سري للغاية</span><h3>لقيت الملف! 🎉<br>هذي أقوى عروض الجمعة</h3>
+   <p>اخترتها من أمازون: خصومات حقيقية وبائع موثوق.</p><div class="timer" id="tm"></div></div>
+   ${DEALS.map((d,i)=>`<div class="deal" style="animation-delay:${i*.08}s"><span class="img" style="background-image:url('${d.img}')"></span><div class="tx"><b>${d.name}</b><div class="why">${d.why}</div>
+   <div class="pr"><span class="price">${sar(d.price)}</span><span class="off">خصم ${d.off}٪</span></div>
+   <a class="go" href="${link(d.asin)}" target="_blank" rel="sponsored noopener">شوف العرض ‹</a></div></div>`).join('')}
+   <p style="text-align:center;font-weight:800;margin-top:16px">تبي العروض الجاية أول بأول؟ 👇</p>
+   <a class="cta" href="${WA}" target="_blank" rel="noopener" style="background:linear-gradient(160deg,#3DDC97,#1CBB93)">📲 قناتنا بالواتساب</a>
+   <a class="cta" href="https://t.me/savemateksa" target="_blank" rel="noopener" style="margin-top:0">✈️ قناتنا بالتيليجرام</a>
+   <button class="share" id="shr">تحدّى خويك يفتح الجوال 🔗</button>
+   <p class="fine">الأسعار من أمازون السعودية وقت التحديث (17 نوفمبر 2026) وممكن تتغير في أي لحظة.<br>الروابط تسويقية: لو اشتريت منها ناخذ عمولة بسيطة وما يتغير عليك السعر.</p>`;
+  wb.scrollTop=0;
+  $('#shr').onclick=share;
+  clearInterval(tick);const tm=$('#tm');
+  const upd=()=>{const s=Math.max(0,(new Date(DEALS_END)-Date.now())/1000);
+    if(!s){tm.innerHTML='انتهت فترة العروض ⌛ تأكد من السعر قبل تشتري';return clearInterval(tick)}
+    const h=Math.floor(s/3600),m=Math.floor(s%3600/60),x=Math.floor(s%60);
+    tm.innerHTML=`ينتهي بعد <span>${h}:${String(m).padStart(2,'0')}:${String(x).padStart(2,'0')}</span>`};
+  upd();tick=setInterval(upd,1000)}
+async function share(){const data={title:'جوال صديق التوفير',text:'لقيت جوال صديق التوفير ضايع 😳 فيه ملف سري بأقوى عروض الجمعة… تقدر تفتحه؟',url:location.href.split('#')[0]};
+  try{if(navigator.share){await navigator.share(data);return}}catch(e){return}
+  try{await navigator.clipboard.writeText(data.text+' '+data.url);toast('انسخ الرابط ✅ أرسله لخويك')}catch(e){toast(data.url)}}
+</script>
+</body>
+</html>
